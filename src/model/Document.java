@@ -3,6 +3,8 @@
  */
 package model;
 
+import storage.StorageManager;
+
 /**
  * @author Jonas Ahlers
  *
@@ -28,6 +30,9 @@ public class Document {
 	 * @param title the title to set
 	 */
 	public void setTitle(String title) {
+		while(title.startsWith(" "))
+			title = title.replaceFirst(" ", "");
+		
 		this.title = title;
 	}
 	
@@ -44,4 +49,9 @@ public class Document {
 		this.content = content;
 	}
 	
+	
+	public void save() {
+		String filename = title.toLowerCase().replace(" ", "_");
+		StorageManager.save(filename, content);
+	}
 }

@@ -5,10 +5,12 @@ package storage;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import core.RetrievalSystem;
 import model.Document;
 
 /**
@@ -17,27 +19,41 @@ import model.Document;
  */
 public class StorageManager {
 	
-	public List<Document> load() {
-		return null;
+	private static final String DEFAULT_EXTENSION = ".txt";
+	
+	public static List<Document> load() {
+		List<String> files = listFiles(RetrievalSystem.workingDirectory, DEFAULT_EXTENSION);
+		List<Document> documents = new ArrayList<>();
+		for(String filename : files) {
+			String[] parts = filename.split(File.separator);
+			documents.add(new Document(parts[parts.length-1], readFile(filename)));
+		}
+		return documents;
 	}
 	
-	public void save(File file) {
-		
-	}
-	
-	public void save(String filename, String content) {
+	public static void save(String filename, String content) {
+		FileWriter fw = null;
+		try {
+            File newTextFile = new File(RetrievalSystem.workingDirectory+File.separator+filename+DEFAULT_EXTENSION);
 
+            fw = new FileWriter(newTextFile);
+            fw.write(content);
+            fw.close();
+        } catch (IOException iox) {
+            //do stuff with exception
+            iox.printStackTrace();
+        } 
 	}
 	
 	/**
      * Loads the given file into a String
      * 
-     * @param filename Filename - with path - to the file to be loaded
+     * @param path Filename - with path - to the file to be loaded
      * @return file-content as String
      */
-    public static String readFile(String filename) {
+	public static String readFile(String path) {
 	   String content = null;
-	   File file = new File(filename);
+	   File file = new File(path);
 	   
 	   try {
 		   FileReader reader = new FileReader(file);
@@ -51,12 +67,8 @@ public class StorageManager {
 	   
 	   return content;
 	}
-	
-	public static List<String> listFiles(String path) {
-		return listFiles(path, "");
-	}
     
-    public static List<String> listFiles(String path, String filetype) {
+    private static List<String> listFiles(String path, String filetype) {
 		List<String> result = new ArrayList<String>();
 		
 		File root = new File( path );
