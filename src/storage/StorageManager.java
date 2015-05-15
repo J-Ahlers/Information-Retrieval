@@ -21,12 +21,22 @@ public class StorageManager {
 	
 	private static final String DEFAULT_EXTENSION = ".txt";
 	
-	public static List<Document> load() {
+	public static List<Document> load() {		
+		return load(true, true);
+	}
+	
+	public static List<Document> load(boolean eliminateStopwords, boolean useStemming) {
 		List<String> files = listFiles(RetrievalSystem.workingDirectory, DEFAULT_EXTENSION);
 		List<Document> documents = new ArrayList<>();
 		for(String filename : files) {
 			String[] parts = filename.split(File.separator);
-			documents.add(new Document(parts[parts.length-1], readFile(filename)));
+			Document doc = new Document(parts[parts.length-1], readFile(filename));
+			if(eliminateStopwords)
+				doc.eliminateStopwords();
+			if(useStemming)
+				doc.useStemming();
+			 
+			documents.add(doc);
 		}
 		return documents;
 	}

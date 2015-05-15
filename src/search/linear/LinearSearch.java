@@ -18,7 +18,7 @@ public class LinearSearch implements Search {
 	
 	@Override
 	public List<Document> getDocumentMatches(List<String> terms, boolean eliminateStopwords, boolean useStemming) {
-		List<Document> docList = new ArrayList<>(StorageManager.load());
+		List<Document> docList = new ArrayList<>(StorageManager.load(eliminateStopwords, useStemming));
 		List<Document> searchResult = new ArrayList<>();
 		
 		for(Document doc : docList) {

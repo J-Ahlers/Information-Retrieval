@@ -3,7 +3,6 @@
  */
 package utils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,21 +14,13 @@ import storage.StorageManager;
  */
 public class StopWordEliminator {
 	
-	private List<String> stopWords;
-	
-	public StopWordEliminator() {
-		loadStopWords();
-	}
-	
-	public List<String> getCleanContent(String content) {
-		List<String> cleanContent = new ArrayList<>();
+	public String getCleanContent(String content) {
 		// replace unwanted stuff with an whitespace character
 		String temp = removeLineBreaks(content);
 		temp = removePunctuation(temp);
 		temp = removeStopWords(temp);
-		// splitting temp, ignoring multiple whitespace characters 
-		cleanContent = Arrays.asList(temp.split("\\s+"));
-		return cleanContent;
+
+		return temp.replace("\\s+", " ");
 	}
 	
 	private String removeLineBreaks(String content) {
@@ -45,13 +36,30 @@ public class StopWordEliminator {
 		
 	private String removeStopWords(String content) {
 		String temp = content;
-		for (String stopWord : stopWords)
+		for (String stopWord : StopwordList.getInstance().getStopwords())
 			temp = temp.replace(" " + stopWord + " ", " ");
 		return temp;
 	}
 	
-	private void loadStopWords() {
-		String string = StorageManager.readFile("res/englishST.txt");
-		stopWords =	Arrays.asList(string.split("\r\n"));
+	private static class StopwordList {
+		
+		private static StopwordList mInstance;
+		private List<String> stopWords;
+		
+		private StopwordList() {
+			String string = StorageManager.readFile("res/englishST.txt");
+			stopWords =	Arrays.asList(string.split("\r\n"));
+		}
+		
+		public static StopwordList getInstance() {
+			if(mInstance == null)
+				mInstance = new StopwordList();
+			
+			return mInstance;				
+		}
+		
+		public List<String> getStopwords() {
+			return stopWords;
+		}
 	}
 }

@@ -4,6 +4,7 @@
 package model;
 
 import storage.StorageManager;
+import utils.StopWordEliminator;
 
 /**
  * @author Jonas Ahlers
@@ -42,16 +43,34 @@ public class Document {
 	public String getContent() {
 		return content;
 	}
+	
 	/**
 	 * @param content the content to set
 	 */
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
-	
+	/**
+	 * Saves the document to the specified workingDirectory
+	 */
 	public void save() {
-		String filename = title.toLowerCase().replace(" ", "_");
-		StorageManager.save(filename, content);
+		StorageManager.save(getFilename(), content);
+	}
+	
+	private String getFilename() {
+		return title.toLowerCase().replace(" ", "_");
+	}
+	
+	public void eliminateStopwords() {
+		StopWordEliminator se = new StopWordEliminator();
+		setContent(se.getCleanContent(getContent()));
+	}
+	
+	public void useStemming() {
+		// Not implemented yet
+	}
+	
+	public void loadOriginal() {
+		setContent(StorageManager.readFile(getFilename()));
 	}
 }
