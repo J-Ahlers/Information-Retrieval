@@ -27,7 +27,7 @@ public class StopWordEliminator {
 		String temp = removeLineBreaks(content);
 		temp = removePunctuation(temp);
 		temp = removeStopWords(temp);
-		// splitting temp, ignoring multiple whitespace characters
+		// splitting temp, ignoring multiple whitespace characters 
 		cleanContent = Arrays.asList(temp.split("\\s+"));
 		return cleanContent;
 	}
