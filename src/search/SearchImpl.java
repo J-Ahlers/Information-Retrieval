@@ -27,8 +27,8 @@ public class SearchImpl implements Search {
 	}
 	
 	@Override
-	public List<Document> getDocumentMatches(List<String> terms) {
-		return search.getDocumentMatches(terms);
+	public List<Document> getDocumentMatches(List<String> terms, boolean eliminateStopwords, boolean useStemming) {
+		return search.getDocumentMatches(terms, eliminateStopwords, useStemming);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ import storage.StorageManager;
 public class LinearSearch implements Search {	
 	
 	@Override
-	public List<Document> getDocumentMatches(List<String> terms) {
+	public List<Document> getDocumentMatches(List<String> terms, boolean eliminateStopwords, boolean useStemming) {
 		List<Document> docList = new ArrayList<>(StorageManager.load());
 		List<Document> searchResult = new ArrayList<>();
 		

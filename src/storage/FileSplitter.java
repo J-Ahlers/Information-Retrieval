@@ -13,8 +13,8 @@ public class FileSplitter {
 	
 	private static final String SPLITTERM = "The Cock and the Pearl\r\n";
 	
-	public void split(String pathToFile) {
-		String filecontent = StorageManager.readFile(pathToFile);
+	public void createDocumentCollection() {
+		String filecontent = StorageManager.readFile("res/aesopa10.txt");
 		String[] parts = filecontent.split(SPLITTERM);
 		if(parts.length != 2)
 			return;
