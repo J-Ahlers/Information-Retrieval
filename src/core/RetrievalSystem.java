@@ -1,21 +1,42 @@
 package core;
 
-import search.Search;
-import search.SearchImpl;
-import storage.FileSplitter;
+import gui.ManagerFrame;
+
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 
 public class RetrievalSystem {
 
+	private static ManagerFrame frame;
+
+	/**
+	 * Name der Software wird immer hinter dem Namen des aktuellen Fensters
+	 * angezeigt
+	 */
+	public static final String PRODUCT_NAME = "InformationRetrieval";
+	
 	public static String workingDirectory;
 	
 	public static void main(String[] args) {
 		
-		workingDirectory = args[1];
-		Search search = new SearchImpl(Search.STRATEGY_LINEAR);
-		search.getDocumentMatches(null);
-		
-		FileSplitter fs = new FileSplitter();
-		fs.split(args[0]);
-	}
+		try {
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
+		} catch (Exception e) {
+			// nichts tun
+		}
 
+		frame = new ManagerFrame();
+		while (frame.isVisible()) {
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				// nichts tun
+			}
+		}
+	}
 }
