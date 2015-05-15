@@ -2,7 +2,9 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FileDialog;
 import java.awt.Toolkit;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 
@@ -56,7 +58,23 @@ public class ManagerFrame extends JFrame {
 	 * CreateCollection-Fenster an
 	 */
 	public void showCreateCollection() {
-		
+		// �ffnet den Dateimananger und speichert Pfad ab...
+		FileDialog fd = new FileDialog(this, "Choose a file", FileDialog.LOAD);
+		// fd.setDirectory("C:\\Users\\Sophie\\Pictures");
+		fd.setDirectory("C:\\Users");
+		// fd.setFile("*.jpg");
+		fd.setVisible(true);
+		String filename = fd.getFile();
+		String directory = fd.getDirectory();
+		// falls ein Foto ausgew�hlt wurde
+		if (filename != null) {
+			showMainWindow();
+//			this.removeAll();
+//			AddPicture addPicture = new AddPicture(frame, collection);
+//			this.add(addPicture, BorderLayout.CENTER);
+//			this.validate();
+//			this.repaint();
+		}
 	}
 
 	/**
