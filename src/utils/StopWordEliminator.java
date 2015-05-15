@@ -10,7 +10,7 @@ import java.util.List;
 import storage.StorageManager;
 
 /**
- * @author Jonas Ahlers
+ * @author Sophie Baschinski
  *
  */
 public class StopWordEliminator {

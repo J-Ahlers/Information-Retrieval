@@ -23,8 +23,7 @@ public class MenuBar extends JMenuBar {
 	private JMenuItem miMainMenu = new JMenuItem();
 	private JMenuItem miEnd = new JMenuItem();
 	private JMenuItem miCreateCollection = new JMenuItem();
-	private JMenuItem miLoadCollection = new JMenuItem();
-
+	
 	private ActionListener alMenuBar = new AlMenu();
 
 	/**
@@ -38,7 +37,6 @@ public class MenuBar extends JMenuBar {
 		miMainMenu.setText("Main Menu");
 		miEnd.setText("Exit");
 		miCreateCollection.setText("Create Collection");
-		miLoadCollection.setText("Load Collection");
 
 		this.add(mFile);
 		this.add(mManage);
@@ -46,14 +44,12 @@ public class MenuBar extends JMenuBar {
 		mFile.addSeparator();
 		mFile.add(miEnd);
 		mManage.add(miCreateCollection);
-		mManage.add(miLoadCollection);
 
 		mFile.addActionListener(alMenuBar);
 		mManage.addActionListener(alMenuBar);
 		miMainMenu.addActionListener(alMenuBar);
 		miEnd.addActionListener(alMenuBar);
 		miCreateCollection.addActionListener(alMenuBar);
-		miLoadCollection.addActionListener(alMenuBar);
 	}
 
 	private void mainMenu() {
@@ -68,10 +64,6 @@ public class MenuBar extends JMenuBar {
 		frame.showCreateCollection();
 	}
 
-	private void loadCollections() {
-		frame.showLoadCollections();
-	}
-
 	private class AlMenu implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
@@ -82,8 +74,6 @@ public class MenuBar extends JMenuBar {
 				closeSystem();
 			} else if (source.equals(miCreateCollection)) {
 				createCollection();
-			} else if (source.equals(miLoadCollection)) {
-				loadCollections();
 			}
 		}
 	}

@@ -11,7 +11,7 @@ import search.Search;
 import storage.StorageManager;
 
 /**
- * @author Jonas Ahlers
+ * @author Sophie Baschinski
  *
  */
 public class LinearSearch implements Search {	

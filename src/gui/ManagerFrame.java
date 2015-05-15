@@ -2,9 +2,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FileDialog;
 import java.awt.Toolkit;
-import java.util.Arrays;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -12,7 +10,7 @@ import javax.swing.JFrame;
 import core.RetrievalSystem;
 
 /**
- * Zentrales Fenster der Image-Retrieval-Software
+ * Zentrales Fenster
  * 
  * @author Sophie Baschinski
  * @since 09.12.2014
@@ -73,19 +71,7 @@ public class ManagerFrame extends JFrame {
 	    }
 		showMainWindow();
 	}
-
-	/**
-	 * leert den aktuell angezeigten Bildschirm, zeigt das
-	 * LoadCollections-Fenster an
-	 */
-	public void showLoadCollections() {
-		//this.getContentPane().removeAll();
-		//loadCollections = new LoadCollections(this);
-		//this.add(loadCollections, BorderLayout.CENTER);
-		//this.validate();
-		//this.repaint();
-	}
-
+	
 	/**
 	 * Titel des Fensters setzen, bestehend aus Titel des aktuellen Fensters -
 	 * Image Retrieval

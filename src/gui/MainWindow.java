@@ -13,8 +13,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
- * @author SofI
- *
+ * @author Sophie Baschinski
+ * @since 15.05.2015 
  */
 public class MainWindow extends JPanel {
 	private static final long serialVersionUID = 13;
@@ -22,7 +22,6 @@ public class MainWindow extends JPanel {
 	private ManagerFrame frame;
 
 	private JButton bCreateCollection = new JButton();
-	private JButton bLoadCollection = new JButton();
 	private JButton bClose = new JButton();
 	private JPanel panel = new JPanel();
 
@@ -44,19 +43,15 @@ public class MainWindow extends JPanel {
 
 		Dimension dimension = new Dimension(250, 60);
 		bCreateCollection.setPreferredSize(dimension);
-		bLoadCollection.setPreferredSize(dimension);
 		bClose.setPreferredSize(dimension);
 
 		bCreateCollection.setText("Create new collection");
-		bLoadCollection.setText("Load existing collection");
 		bClose.setText("Exit system");
 
 		panel.add(bCreateCollection);
-		panel.add(bLoadCollection);
 		panel.add(bClose);
 
 		bCreateCollection.addActionListener(alMainMenu);
-		bLoadCollection.addActionListener(alMainMenu);
 		bClose.addActionListener(alMainMenu);
 	}
 
@@ -65,13 +60,6 @@ public class MainWindow extends JPanel {
 	 */
 	private void createCollection() {
 		frame.showCreateCollection();
-	}
-
-	/**
-	 * zeigt LoadCollection-Fenster an
-	 */
-	private void loadCollections() {
-		frame.showLoadCollections();
 	}
 
 	/**
@@ -90,8 +78,6 @@ public class MainWindow extends JPanel {
 			Object source = event.getSource();
 			if (source.equals(bCreateCollection)) {
 				createCollection();
-			} else if (source.equals(bLoadCollection)) {
-				loadCollections();
 			} else if (source.equals(bClose)) {
 				closeSystem();
 			}
