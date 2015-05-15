@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -27,7 +28,6 @@ public class ResultWindow extends JPanel {
 	private ManagerFrame frame;
 	private List<Document> result;
 	private JButton bConfirm = new JButton();
-	private JTextField tfSearchWord = new JTextField(300);
 	
 	private AlResultWindow alResultWindow = new AlResultWindow();
 	
@@ -53,9 +53,17 @@ public class ResultWindow extends JPanel {
 
 		panelNorth.add(label);
 		panelSouth.add(bConfirm);
-		panelNorth.add(tfSearchWord);
 		
-		tfSearchWord.setText(result);
+		JPanel jplPanel = new JPanel();
+		jplPanel.setLayout(new BoxLayout(jplPanel, BoxLayout.Y_AXIS));
+		for(Document res : result) {
+			JTextField tfSearchWord = new JTextField(20);
+			tfSearchWord.setText(res.getTitle());
+			jplPanel.add(tfSearchWord);
+			
+		}
+		
+		panelNorth.add(jplPanel);
 		
 		bConfirm.addActionListener(alResultWindow);
 	}
