@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
+import storage.FileSplitter;
 import core.RetrievalSystem;
 
 /**
@@ -66,8 +67,13 @@ public class ManagerFrame extends JFrame {
 	    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 		    System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
 		    System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
-			this.getContentPane().removeAll();
-			SearchWindow searchWindow = new SearchWindow(this, chooser.getSelectedFile());
+		    
+		    RetrievalSystem.workingDirectory = chooser.getSelectedFile().getAbsolutePath();
+		    FileSplitter fs = new FileSplitter();
+			fs.createDocumentCollection();
+		    
+		    this.getContentPane().removeAll();		
+			SearchWindow searchWindow = new SearchWindow(this);
 			this.add(searchWindow, BorderLayout.CENTER);
 			this.validate();
 			this.repaint();

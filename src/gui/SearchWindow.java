@@ -7,7 +7,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import javax.swing.JTextField;
 import model.Document;
 import search.Search;
 import search.SearchImpl;
-import core.RetrievalSystem;
 
 /**
  * @author Sophie Baschinski
@@ -44,9 +42,8 @@ public class SearchWindow extends JPanel {
 
 	private AlSearchWindow alSearchWindow = new AlSearchWindow();
 	
-	public SearchWindow(ManagerFrame frame, File file) {
+	public SearchWindow(ManagerFrame frame) {
 		this.frame = frame;
-		RetrievalSystem.workingDirectory = file.getAbsolutePath();
 		frame.setTitle("Search Window");
 		this.setLayout(new BorderLayout());
 
