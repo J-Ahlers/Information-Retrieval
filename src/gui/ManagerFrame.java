@@ -64,12 +64,16 @@ public class ManagerFrame extends JFrame {
 	    chooser.setAcceptAllFileFilterUsed(false);
 
 	    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-	      System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
-	      System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
+		    System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
+		    System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
+			this.getContentPane().removeAll();
+			SearchWindow searchWindow = new SearchWindow(this, chooser.getSelectedFile());
+			this.add(searchWindow, BorderLayout.CENTER);
+			this.validate();
+			this.repaint();
 	    } else {
-	      System.out.println("No Selection ");
+	    	System.out.println("No Selection ");
 	    }
-		showMainWindow();
 	}
 	
 	/**
