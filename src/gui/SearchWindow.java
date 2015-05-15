@@ -76,7 +76,6 @@ public class SearchWindow extends JPanel {
 			frame.validate();
 			frame.repaint();
 		}
-		System.out.println("YAY");
 	}
 	
 	private class AlSearchWindow implements ActionListener {
