@@ -9,6 +9,7 @@ import java.util.List;
 import model.Document;
 import search.Search;
 import storage.StorageManager;
+import utils.StopWordEliminator;
 
 /**
  * @author Sophie Baschinski
@@ -31,11 +32,18 @@ public class LinearSearch implements Search {
 
 	@Override
 	public boolean containsTerm(Document doc, List<String> terms) {
+		boolean result = true;
 		for(String term : terms) {
-			if ((doc.getTitle().contains(term.toLowerCase())) || (doc.getContent().contains(term.toLowerCase())))
-				return true;
+			if(StopWordEliminator.isStopword(term))
+				continue;
+			
+			boolean inTitle = doc.getTitle().contains(" "+term.toLowerCase()+" ");
+			boolean inContent = doc.getContent().contains(" "+term.toLowerCase()+" ");
+			result = result && ( inTitle || inContent );
+			if(result)
+				result = true;
 		}
-		return false;
+		return result;
 	}
 
 }

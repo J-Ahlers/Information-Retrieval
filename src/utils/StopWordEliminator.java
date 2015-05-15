@@ -18,9 +18,13 @@ public class StopWordEliminator {
 		// replace unwanted stuff with an whitespace character
 		String temp = removeLineBreaks(content);
 		temp = removePunctuation(temp);
-		temp = removeStopWords(temp);
-
+		temp = " "+temp+" ";
+		
 		return temp.replace("\\s+", " ");
+	}
+	
+	public String elimateStopwords(String str) {
+		return removeStopWords(str);
 	}
 	
 	private String removeLineBreaks(String content) {
@@ -28,9 +32,10 @@ public class StopWordEliminator {
 	}
 	
 	private String removePunctuation(String content) {
-		String temp = content.replaceAll("[,.;!?:\"[](){}><]", " ");
+		//String temp = content.replaceAll("[,.;!?:\"[](){}><]", " ");
+		String temp = content.replaceAll("[,.;!?:\"\\[\\](){}><]", " ");
 		// replace apostrophe only if a whitespace character follows afterwards 
-		temp = content.replaceAll("' ", " ");
+		temp = temp.replaceAll("' ", " ");
 		return temp;
 	}
 		
@@ -39,6 +44,10 @@ public class StopWordEliminator {
 		for (String stopWord : StopwordList.getInstance().getStopwords())
 			temp = temp.replace(" " + stopWord + " ", " ");
 		return temp;
+	}
+	
+	public static boolean isStopword(String word) {
+		return StopwordList.getInstance().getStopwords().contains(word);
 	}
 	
 	private static class StopwordList {

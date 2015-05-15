@@ -48,7 +48,9 @@ public class Document {
 	 * @param content the content to set
 	 */
 	public void setContent(String content) {
-		this.content = content;
+		StopWordEliminator se = new StopWordEliminator();
+		String tmp = se.getCleanContent(content);
+		this.content = tmp;
 	}
 	/**
 	 * Saves the document to the specified workingDirectory
@@ -63,7 +65,7 @@ public class Document {
 	
 	public void eliminateStopwords() {
 		StopWordEliminator se = new StopWordEliminator();
-		setContent(se.getCleanContent(getContent()));
+		setContent(se.elimateStopwords(getContent()));
 	}
 	
 	public void useStemming() {
