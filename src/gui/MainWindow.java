@@ -21,7 +21,7 @@ public class MainWindow extends JPanel {
 
 	private ManagerFrame frame;
 
-	private JButton bCreateCollection = new JButton();
+	private JButton bChooseDirectory = new JButton();
 	private JButton bClose = new JButton();
 	private JPanel panel = new JPanel();
 
@@ -42,24 +42,24 @@ public class MainWindow extends JPanel {
 		panel.setLayout(gridLayout);
 
 		Dimension dimension = new Dimension(250, 60);
-		bCreateCollection.setPreferredSize(dimension);
+		bChooseDirectory.setPreferredSize(dimension);
 		bClose.setPreferredSize(dimension);
 
-		bCreateCollection.setText("Create new collection");
+		bChooseDirectory.setText("Choose Directory!");
 		bClose.setText("Exit system");
 
-		panel.add(bCreateCollection);
+		panel.add(bChooseDirectory);
 		panel.add(bClose);
 
-		bCreateCollection.addActionListener(alMainMenu);
+		bChooseDirectory.addActionListener(alMainMenu);
 		bClose.addActionListener(alMainMenu);
 	}
 
 	/**
-	 * zeigt CreateCollection-Fenster an
+	 * zeigt chooseDirectory-Fenster an
 	 */
-	private void createCollection() {
-		frame.showCreateCollection();
+	private void chooseDirectory() {
+		frame.directoryChooser();
 	}
 
 	/**
@@ -76,8 +76,8 @@ public class MainWindow extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			Object source = event.getSource();
-			if (source.equals(bCreateCollection)) {
-				createCollection();
+			if (source.equals(bChooseDirectory)) {
+				chooseDirectory();
 			} else if (source.equals(bClose)) {
 				closeSystem();
 			}

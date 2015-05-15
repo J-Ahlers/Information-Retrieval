@@ -22,7 +22,7 @@ public class MenuBar extends JMenuBar {
 	private JMenu mManage = new JMenu();
 	private JMenuItem miMainMenu = new JMenuItem();
 	private JMenuItem miEnd = new JMenuItem();
-	private JMenuItem miCreateCollection = new JMenuItem();
+	private JMenuItem miChooseDirectory = new JMenuItem();
 	
 	private ActionListener alMenuBar = new AlMenu();
 
@@ -36,20 +36,20 @@ public class MenuBar extends JMenuBar {
 		mManage.setText("Manage");
 		miMainMenu.setText("Main Menu");
 		miEnd.setText("Exit");
-		miCreateCollection.setText("Create Collection");
+		miChooseDirectory.setText("Choose Directory");
 
 		this.add(mFile);
 		this.add(mManage);
 		mFile.add(miMainMenu);
 		mFile.addSeparator();
 		mFile.add(miEnd);
-		mManage.add(miCreateCollection);
+		mManage.add(miChooseDirectory);
 
 		mFile.addActionListener(alMenuBar);
 		mManage.addActionListener(alMenuBar);
 		miMainMenu.addActionListener(alMenuBar);
 		miEnd.addActionListener(alMenuBar);
-		miCreateCollection.addActionListener(alMenuBar);
+		miChooseDirectory.addActionListener(alMenuBar);
 	}
 
 	private void mainMenu() {
@@ -60,8 +60,8 @@ public class MenuBar extends JMenuBar {
 		System.exit(0);
 	}
 
-	private void createCollection() {
-		frame.showCreateCollection();
+	private void chooseDirectory() {
+		frame.directoryChooser();
 	}
 
 	private class AlMenu implements ActionListener {
@@ -72,8 +72,8 @@ public class MenuBar extends JMenuBar {
 				mainMenu();
 			} else if (source.equals(miEnd)) {
 				closeSystem();
-			} else if (source.equals(miCreateCollection)) {
-				createCollection();
+			} else if (source.equals(miChooseDirectory)) {
+				chooseDirectory();
 			}
 		}
 	}

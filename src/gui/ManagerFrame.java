@@ -56,7 +56,7 @@ public class ManagerFrame extends JFrame {
 	 * leert den aktuell angezeigten Bildschirm, zeigt das
 	 * CreateCollection-Fenster an
 	 */
-	public void showCreateCollection() {
+	public void directoryChooser() {
 	    JFileChooser chooser = new JFileChooser();
 	    chooser.setCurrentDirectory(new java.io.File("."));
 	    chooser.setDialogTitle("choosertitle");
