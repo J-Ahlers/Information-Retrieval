@@ -18,8 +18,7 @@ public class LinearSearch implements Search {
 	
 	@Override
 	public List<Document> getDocumentMatches(List<String> terms) {
-		StorageManager storageManager = new StorageManager();
-		List<Document> docList = new ArrayList<>(storageManager.load());
+		List<Document> docList = new ArrayList<>(StorageManager.load());
 		List<Document> searchResult = new ArrayList<>();
 		
 		for(Document doc : docList) {
