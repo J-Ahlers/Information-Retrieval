@@ -6,6 +6,7 @@ import java.awt.FileDialog;
 import java.awt.Toolkit;
 import java.util.Arrays;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import core.RetrievalSystem;
@@ -58,23 +59,19 @@ public class ManagerFrame extends JFrame {
 	 * CreateCollection-Fenster an
 	 */
 	public void showCreateCollection() {
-		// �ffnet den Dateimananger und speichert Pfad ab...
-		FileDialog fd = new FileDialog(this, "Choose a file", FileDialog.LOAD);
-		// fd.setDirectory("C:\\Users\\Sophie\\Pictures");
-		fd.setDirectory("C:\\Users");
-		// fd.setFile("*.jpg");
-		fd.setVisible(true);
-		String filename = fd.getFile();
-		String directory = fd.getDirectory();
-		// falls ein Foto ausgew�hlt wurde
-		if (filename != null) {
-			showMainWindow();
-//			this.removeAll();
-//			AddPicture addPicture = new AddPicture(frame, collection);
-//			this.add(addPicture, BorderLayout.CENTER);
-//			this.validate();
-//			this.repaint();
-		}
+	    JFileChooser chooser = new JFileChooser();
+	    chooser.setCurrentDirectory(new java.io.File("."));
+	    chooser.setDialogTitle("choosertitle");
+	    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+	    chooser.setAcceptAllFileFilterUsed(false);
+
+	    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+	      System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
+	      System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
+	    } else {
+	      System.out.println("No Selection ");
+	    }
+		showMainWindow();
 	}
 
 	/**
