@@ -3,9 +3,9 @@
  */
 package search;
 
-import java.io.File;
 import java.util.List;
 
+import model.Document;
 import search.linear.LinearSearch;
 
 /**
@@ -27,13 +27,13 @@ public class SearchImpl implements Search {
 	}
 	
 	@Override
-	public List<File> getDocumentMatches(List<String> terms) {
+	public List<Document> getDocumentMatches(List<String> terms) {
 		return search.getDocumentMatches(terms);
 	}
 
 	@Override
-	public boolean containsTerm(File file) {
-		return search.containsTerm(file);
+	public boolean containsTerm(Document doc, List<String> terms) {
+		return search.containsTerm(doc, terms);
 	}
 
 }
