@@ -20,17 +20,16 @@ import javax.swing.JTextField;
 import model.Document;
 import search.Search;
 import search.SearchImpl;
-import search.linear.LinearSearch;
+import core.RetrievalSystem;
 
 /**
  * @author Sophie Baschinski
- *
+ * @since 15.05.2015
  */
 public class SearchWindow extends JPanel {
 	private static final long serialVersionUID = 13;
 
 	private ManagerFrame frame;
-	private File directory;
 	private List<String> searchTerms;
 	private boolean sWE;
 	private List<Document> result;
@@ -47,7 +46,7 @@ public class SearchWindow extends JPanel {
 	
 	public SearchWindow(ManagerFrame frame, File file) {
 		this.frame = frame;
-		this.directory = file;
+		RetrievalSystem.workingDirectory = file.getAbsolutePath();
 		frame.setTitle("Search Window");
 		this.setLayout(new BorderLayout());
 
@@ -73,16 +72,13 @@ public class SearchWindow extends JPanel {
 		sWE = cbSWE.isSelected();
 		if (!searchTerms.isEmpty()) {
 			Search search = new SearchImpl(Search.STRATEGY_LINEAR);
-			result = search.getDocumentMatches(searchTerms);
+			result = search.getDocumentMatches(searchTerms, sWE, false);
 			frame.getContentPane().removeAll();
 			ResultWindow resultWindow = new ResultWindow(frame, result);
 			frame.add(resultWindow, BorderLayout.CENTER);
 			frame.validate();
 			frame.repaint();
 		}
-
-		
-		
 		System.out.println("YAY");
 	}
 	

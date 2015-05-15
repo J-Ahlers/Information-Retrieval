@@ -19,7 +19,8 @@ import javax.swing.JTextField;
 import model.Document;
 
 /**
- * @author Jonas Ahlers
+ * @author Sophie Baschinski
+ * @since 15.05.2015
  *
  */
 public class ResultWindow extends JPanel {
@@ -27,42 +28,43 @@ public class ResultWindow extends JPanel {
 
 	private ManagerFrame frame;
 	private List<Document> result;
-
-	private JLabel label = new JLabel();
-
-	private JPanel panelNorth = new JPanel();
-	private JPanel panelSouth = new JPanel();
-
-	private AlSearchWindow alSearchWindow = new AlSearchWindow();
+	private JButton bConfirm = new JButton();
+	
+	private AlResultWindow alResultWindow = new AlResultWindow();
 	
 	public ResultWindow(ManagerFrame frame, List<Document> result) {
 		this.frame = frame;
 		this.result = result;
-		frame.setTitle("Search results");
+		frame.setTitle("Result Window");
 		this.setLayout(new BorderLayout());
 
+		
+		
+		JLabel label = new JLabel();
+
+		JPanel panelNorth = new JPanel();
+		JPanel panelSouth = new JPanel();
+		
 		bConfirm.setPreferredSize(new Dimension(150, 40));
 
-		label.setText("Please Enter Your Search Word: ");
-		bConfirm.setText("Search");
+		label.setText("Please Enter Your Result Word: ");
+		bConfirm.setText("Result");
 
 		this.add(panelNorth, BorderLayout.PAGE_START);
 		//this.add(panelCenter, BorderLayout.CENTER);
 		this.add(panelSouth, BorderLayout.PAGE_END);
 
 		panelNorth.add(label);
-		panelNorth.add(tfSearchWord);
 		panelSouth.add(bConfirm);
-		panelSouth.add(cbSWE);
-
-		bConfirm.addActionListener(alSearchWindow);
+		
+		bConfirm.addActionListener(alResultWindow);
 	}
 	
 	private void confirm() {
 		System.out.println("YAY");
 	}
 	
-	private class AlSearchWindow implements ActionListener {
+	private class AlResultWindow implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			Object source = event.getSource();
