@@ -8,6 +8,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -15,8 +17,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import model.Document;
+import search.Search;
+import search.SearchImpl;
+import search.linear.LinearSearch;
+
 /**
- * @author SofI
+ * @author Sophie Baschinski
  *
  */
 public class SearchWindow extends JPanel {
@@ -24,6 +31,9 @@ public class SearchWindow extends JPanel {
 
 	private ManagerFrame frame;
 	private File directory;
+	private List<String> searchTerms;
+	private boolean sWE;
+	private List<Document> result;
 
 	private JButton bConfirm = new JButton();
 	private JLabel label = new JLabel();
@@ -54,11 +64,25 @@ public class SearchWindow extends JPanel {
 		panelNorth.add(tfSearchWord);
 		panelSouth.add(bConfirm);
 		panelSouth.add(cbSWE);
-
+		
 		bConfirm.addActionListener(alSearchWindow);
 	}
 	
 	private void confirm() {
+		searchTerms = Arrays.asList(tfSearchWord.getText().split(" "));
+		sWE = cbSWE.isSelected();
+		if (!searchTerms.isEmpty()) {
+			Search search = new SearchImpl(Search.STRATEGY_LINEAR);
+			result = search.getDocumentMatches(searchTerms);
+			frame.getContentPane().removeAll();
+			ResultWindow resultWindow = new ResultWindow(frame, result);
+			frame.add(resultWindow, BorderLayout.CENTER);
+			frame.validate();
+			frame.repaint();
+		}
+
+		
+		
 		System.out.println("YAY");
 	}
 	
