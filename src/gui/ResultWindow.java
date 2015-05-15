@@ -7,11 +7,9 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -29,6 +27,7 @@ public class ResultWindow extends JPanel {
 	private ManagerFrame frame;
 	private List<Document> result;
 	private JButton bConfirm = new JButton();
+	private JTextField tfSearchWord = new JTextField(300);
 	
 	private AlResultWindow alResultWindow = new AlResultWindow();
 	
@@ -37,8 +36,6 @@ public class ResultWindow extends JPanel {
 		this.result = result;
 		frame.setTitle("Result Window");
 		this.setLayout(new BorderLayout());
-
-		
 		
 		JLabel label = new JLabel();
 
@@ -56,12 +53,16 @@ public class ResultWindow extends JPanel {
 
 		panelNorth.add(label);
 		panelSouth.add(bConfirm);
+		panelNorth.add(tfSearchWord);
+		
+		tfSearchWord.setText(result);
 		
 		bConfirm.addActionListener(alResultWindow);
 	}
 	
 	private void confirm() {
 		System.out.println("YAY");
+		System.out.println(result.toString());
 	}
 	
 	private class AlResultWindow implements ActionListener {
