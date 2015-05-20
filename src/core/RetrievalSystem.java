@@ -18,7 +18,7 @@ public class RetrievalSystem {
 	/**
 	 * Does NOT end with a tailing slash!
 	 */
-	public static final String workingDirectory = "/res/WorkingDirectory";
+	public static String workingDirectory;
 	
 	public static void main(String[] args) {
 		
