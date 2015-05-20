@@ -62,7 +62,7 @@ public class Document {
 	 * Saves the document to the specified workingDirectory
 	 */
 	public void save() {
-		StorageManager.save(getFilename(), content, type);
+		StorageManager.saveDocument(getFilename(), content, type);
 	}
 	
 	private String getFilename() {

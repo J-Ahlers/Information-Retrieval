@@ -63,31 +63,15 @@ public class StorageManager {
 	}
 	
 	public static void saveDocument(String filename, String content, int type) {
-		String folder = getFoldername(type);
-		
+		String folder = getFoldername(type);	
 		ensureFolderExists(RetrievalSystem.workingDirectory, folder);
-		
-		FileWriter fw = null;
-		try {
-            File newTextFile = new File(RetrievalSystem.workingDirectory+File.separator+folder+File.separator+filename+DEFAULT_EXTENSION);
-
-            fw = new FileWriter(newTextFile);
-            fw.write(content);
-            fw.close();
-        } catch (IOException iox) {
-            //do stuff with exception
-            iox.printStackTrace();
-        } 
+		save(RetrievalSystem.workingDirectory+File.separator+folder+File.separator+filename+DEFAULT_EXTENSION, content);
 	}
 	
-	public static void save(String filename, String content, int type) {
-		String folder = getFoldername(type);
-		
-		ensureFolderExists(RetrievalSystem.workingDirectory, folder);
-		
+	public static void save(String path, String content) {		
 		FileWriter fw = null;
 		try {
-            File newTextFile = new File(RetrievalSystem.workingDirectory+File.separator+folder+File.separator+filename+DEFAULT_EXTENSION);
+            File newTextFile = new File(path);
 
             fw = new FileWriter(newTextFile);
             fw.write(content);
