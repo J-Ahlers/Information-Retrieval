@@ -3,6 +3,7 @@
  */
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -11,6 +12,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import storage.WorkingDirectory;
 
 /**
  * @author Sophie Baschinski
@@ -23,6 +26,7 @@ public class MainWindow extends JPanel {
 
 	private JButton bChooseDirectory = new JButton();
 	private JButton bClose = new JButton();
+	private JButton bContinue = new JButton();
 	private JPanel panel = new JPanel();
 
 	private AlMainMenu alMainMenu = new AlMainMenu();
@@ -44,24 +48,40 @@ public class MainWindow extends JPanel {
 		Dimension dimension = new Dimension(250, 60);
 		bChooseDirectory.setPreferredSize(dimension);
 		bClose.setPreferredSize(dimension);
+		bContinue.setPreferredSize(dimension);
 
 		bChooseDirectory.setText("Choose Directory!");
 		bClose.setText("Exit system");
+		bContinue.setText("Continue with saved Working Directory");
 
 		panel.add(bChooseDirectory);
+		panel.add(bContinue);
 		panel.add(bClose);
+		
+		if (!WorkingDirectory.load())
+			bContinue.setEnabled(false);
 
 		bChooseDirectory.addActionListener(alMainMenu);
 		bClose.addActionListener(alMainMenu);
+		bContinue.addActionListener(alMainMenu);
 	}
 
 	/**
 	 * zeigt chooseDirectory-Fenster an
 	 */
 	private void chooseDirectory() {
+		bContinue.setEnabled(true);
 		frame.directoryChooser();
 	}
 
+	private void continueToSearch() {
+		frame.getContentPane().removeAll();		
+		SearchWindow searchWindow = new SearchWindow(frame);
+		frame.add(searchWindow, BorderLayout.CENTER);
+		frame.validate();
+		frame.repaint();
+	}
+	
 	/**
 	 * schlie�t das Programm
 	 */
@@ -80,6 +100,8 @@ public class MainWindow extends JPanel {
 				chooseDirectory();
 			} else if (source.equals(bClose)) {
 				closeSystem();
+			} else if (source.equals(bContinue)) {
+				continueToSearch();
 			}
 		}
 	}

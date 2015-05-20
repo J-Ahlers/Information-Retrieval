@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import storage.FileSplitter;
+import storage.WorkingDirectory;
 import core.RetrievalSystem;
 
 /**
@@ -53,6 +54,14 @@ public class ManagerFrame extends JFrame {
 		this.repaint();
 	}
 
+	public void showSearchWindow() {
+	    this.getContentPane().removeAll();		
+		SearchWindow searchWindow = new SearchWindow(this);
+		this.add(searchWindow, BorderLayout.CENTER);
+		this.validate();
+		this.repaint();
+	}
+	
 	/**
 	 * leert den aktuell angezeigten Bildschirm, zeigt das
 	 * CreateCollection-Fenster an
@@ -69,14 +78,11 @@ public class ManagerFrame extends JFrame {
 		    System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
 		    
 		    RetrievalSystem.workingDirectory = chooser.getSelectedFile().getAbsolutePath();
+		    WorkingDirectory.save();
 		    FileSplitter fs = new FileSplitter();
 			fs.createDocumentCollection();
 		    
-		    this.getContentPane().removeAll();		
-			SearchWindow searchWindow = new SearchWindow(this);
-			this.add(searchWindow, BorderLayout.CENTER);
-			this.validate();
-			this.repaint();
+			showSearchWindow();
 	    } else {
 	    	System.out.println("No Selection ");
 	    }

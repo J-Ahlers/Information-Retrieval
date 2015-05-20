@@ -19,10 +19,9 @@ public class MenuBar extends JMenuBar {
 	private ManagerFrame frame;
 
 	private JMenu mFile = new JMenu();
-	private JMenu mManage = new JMenu();
 	private JMenuItem miMainMenu = new JMenuItem();
+	private JMenuItem miSearchMenu = new JMenuItem();
 	private JMenuItem miEnd = new JMenuItem();
-	//private JMenuItem miChooseDirectory = new JMenuItem();
 	
 	private ActionListener alMenuBar = new AlMenu();
 
@@ -33,29 +32,30 @@ public class MenuBar extends JMenuBar {
 		this.frame = frame;
 
 		mFile.setText("File");
-		mManage.setText("Manage");
 		miMainMenu.setText("Main Menu");
+		miSearchMenu.setText("Search Menu");
 		miEnd.setText("Exit");
-		//miChooseDirectory.setText("Choose Directory");
 
 		this.add(mFile);
-		this.add(mManage);
 		mFile.add(miMainMenu);
+		mFile.add(miSearchMenu);
 		mFile.addSeparator();
 		mFile.add(miEnd);
-		//mManage.add(miChooseDirectory);
 
 		mFile.addActionListener(alMenuBar);
-		mManage.addActionListener(alMenuBar);
 		miMainMenu.addActionListener(alMenuBar);
+		miSearchMenu.addActionListener(alMenuBar);
 		miEnd.addActionListener(alMenuBar);
-		//miChooseDirectory.addActionListener(alMenuBar);
 	}
 
 	private void mainMenu() {
 		frame.showMainWindow();
 	}
 
+	private void searchMenu() {
+		frame.showSearchWindow();
+	}
+	
 	private void closeSystem() {
 		System.exit(0);
 	}
@@ -71,11 +71,11 @@ public class MenuBar extends JMenuBar {
 			Object source = event.getSource();
 			if (source.equals(miMainMenu)) {
 				mainMenu();
+			} else if (source.equals(miSearchMenu)) {
+				searchMenu();
 			} else if (source.equals(miEnd)) {
 				closeSystem();
-			} //else if (source.equals(miChooseDirectory)) {
-				//chooseDirectory();
-			//}
+			}
 		}
 	}
 }
