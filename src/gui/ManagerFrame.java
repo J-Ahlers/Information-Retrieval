@@ -8,6 +8,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import storage.FileSplitter;
+import storage.WorkingDirectory;
 import core.RetrievalSystem;
 
 /**
@@ -19,7 +20,7 @@ import core.RetrievalSystem;
 public class ManagerFrame extends JFrame {
 	private static final long serialVersionUID = 13;
 
-	private SearchWindow MainWindow = new SearchWindow(this);
+	private MainWindow MainWindow = new MainWindow(this);
 	private MenuBar menuBar = new MenuBar(this);
 
 	/**
@@ -68,8 +69,8 @@ public class ManagerFrame extends JFrame {
 		    System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
 		    System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
 		    
-		    //RetrievalSystem.workingDirectory = chooser.getSelectedFile().getAbsolutePath();
-		    //WorkingDirectory.save();
+		    RetrievalSystem.workingDirectory = chooser.getSelectedFile().getAbsolutePath();
+		    WorkingDirectory.save();
 		    FileSplitter fs = new FileSplitter();
 			fs.createDocumentCollection();
 		    
