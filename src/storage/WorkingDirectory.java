@@ -14,7 +14,7 @@ public class WorkingDirectory {
 		
 	}
 	
-	public static void load() {
-		
+	public static String load() {
+		return null;
 	}
 }
