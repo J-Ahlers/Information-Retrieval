@@ -15,6 +15,9 @@ public class RetrievalSystem {
 	 */
 	public static final String PRODUCT_NAME = "InformationRetrieval";
 	
+	/**
+	 * Does NOT end with a tailing slash!
+	 */
 	public static String workingDirectory;
 	
 	public static void main(String[] args) {
