@@ -3,7 +3,6 @@
  */
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -12,8 +11,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-
-import storage.WorkingDirectory;
 
 /**
  * @author Sophie Baschinski
@@ -34,37 +31,28 @@ public class MainWindow extends JPanel {
 	 * bekommt einen frame und zeigt Hauptmenue an
 	 */
 	public MainWindow(ManagerFrame frame) {
-		if (WorkingDirectory.load()) {
-			this.frame = frame;
-			this.frame.getContentPane().removeAll();		
-			SearchWindow searchWindow = new SearchWindow(this.frame);
-			this.frame.add(searchWindow, BorderLayout.CENTER);
-			this.frame.validate();
-			this.frame.repaint();
-		} else {
-			this.frame = frame;
-			frame.setTitle("Main Menu");
-			this.setBounds(this.frame.getBounds());
-			this.setLayout(new GridBagLayout());
-			this.add(panel);
-	
-			GridLayout gridLayout = new GridLayout(3, 1);
-			gridLayout.setVgap(40);
-			panel.setLayout(gridLayout);
-	
-			Dimension dimension = new Dimension(250, 60);
-			bChooseDirectory.setPreferredSize(dimension);
-			bClose.setPreferredSize(dimension);
-	
-			bChooseDirectory.setText("Choose Directory!");
-			bClose.setText("Exit system");
-	
-			panel.add(bChooseDirectory);
-			panel.add(bClose);
-	
-			bChooseDirectory.addActionListener(alMainMenu);
-			bClose.addActionListener(alMainMenu);
-		}
+		this.frame = frame;
+		frame.setTitle("Main Menu");
+		this.setBounds(this.frame.getBounds());
+		this.setLayout(new GridBagLayout());
+		this.add(panel);
+
+		GridLayout gridLayout = new GridLayout(3, 1);
+		gridLayout.setVgap(40);
+		panel.setLayout(gridLayout);
+
+		Dimension dimension = new Dimension(250, 60);
+		bChooseDirectory.setPreferredSize(dimension);
+		bClose.setPreferredSize(dimension);
+
+		bChooseDirectory.setText("Choose Directory!");
+		bClose.setText("Exit system");
+
+		panel.add(bChooseDirectory);
+		panel.add(bClose);
+
+		bChooseDirectory.addActionListener(alMainMenu);
+		bClose.addActionListener(alMainMenu);
 	}
 
 	/**
