@@ -13,8 +13,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import storage.WorkingDirectory;
-
 /**
  * @author Sophie Baschinski
  * @since 15.05.2015 
@@ -34,14 +32,14 @@ public class MainWindow extends JPanel {
 	 * bekommt einen frame und zeigt Hauptmenue an
 	 */
 	public MainWindow(ManagerFrame frame) {
-		if (WorkingDirectory.load()) {
+		//if (WorkingDirectory.load()) {
 			this.frame = frame;
 			this.frame.getContentPane().removeAll();		
 			SearchWindow searchWindow = new SearchWindow(this.frame);
 			this.frame.add(searchWindow, BorderLayout.CENTER);
 			this.frame.validate();
 			this.frame.repaint();
-		} else {
+		//} else {
 			this.frame = frame;
 			frame.setTitle("Main Menu");
 			this.setBounds(this.frame.getBounds());
@@ -64,7 +62,7 @@ public class MainWindow extends JPanel {
 	
 			bChooseDirectory.addActionListener(alMainMenu);
 			bClose.addActionListener(alMainMenu);
-		}
+		//}
 	}
 
 	/**
