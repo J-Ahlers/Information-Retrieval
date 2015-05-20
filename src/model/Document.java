@@ -56,7 +56,7 @@ public class Document {
 	public void setContent(String content) {
 		StopWordEliminator se = new StopWordEliminator();
 		String tmp = se.getCleanContent(content);
-		this.content = tmp;
+		this.content = tmp.toLowerCase();
 	}
 	/**
 	 * Saves the document to the specified workingDirectory

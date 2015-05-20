@@ -28,7 +28,9 @@ public class StopWordEliminator {
 	}
 	
 	private String removeLineBreaks(String content) {
-		return content.replace("\n", " ");
+		String cleaned = content.replace("\r\n", " ");
+		cleaned = cleaned.replace("\n", " ");
+		return cleaned;
 	}
 	
 	private String removePunctuation(String content) {
