@@ -144,7 +144,7 @@ public class StorageManager {
             }
         }
         if(!exists)
-        	(new File(path+foldername)).mkdirs();
+        	(new File(path+File.separator+foldername)).mkdirs();
     }
     
     private static int getType(boolean stopwords, boolean stemming) {
