@@ -30,12 +30,14 @@ public class SearchWindow extends JPanel {
 	private ManagerFrame frame;
 	private List<String> searchTerms;
 	private boolean sWE;
+	private boolean stemming;
 	private List<Document> result;
 
 	private JButton bConfirm = new JButton();
 	private JLabel label = new JLabel();
 	private JTextField tfSearchWord = new JTextField(30);
 	private JCheckBox cbSWE = new JCheckBox("Use StopWord Eliminator");
+	private JCheckBox cbStemming = new JCheckBox("Use Stemming");
 
 	private JPanel panelNorth = new JPanel();
 	private JPanel panelSouth = new JPanel();
@@ -60,6 +62,7 @@ public class SearchWindow extends JPanel {
 		panelNorth.add(tfSearchWord);
 		panelSouth.add(bConfirm);
 		panelSouth.add(cbSWE);
+		panelSouth.add(cbStemming);
 		
 		bConfirm.addActionListener(alSearchWindow);
 	}
@@ -67,9 +70,11 @@ public class SearchWindow extends JPanel {
 	private void confirm() {
 		searchTerms = Arrays.asList(tfSearchWord.getText().split(" "));
 		sWE = cbSWE.isSelected();
+		//stemming = cbStemming.isSelected();
+		stemming = false;
 		if (!searchTerms.isEmpty()) {
 			Search search = new SearchImpl(Search.STRATEGY_LINEAR);
-			result = search.getDocumentMatches(searchTerms, sWE, false);
+			result = search.getDocumentMatches(searchTerms, sWE, stemming);
 			frame.getContentPane().removeAll();
 			ResultWindow resultWindow = new ResultWindow(frame, result);
 			frame.add(resultWindow, BorderLayout.CENTER);
