@@ -43,6 +43,11 @@ public class StorageManager {
 			subfolder = FOLDER_ORIGINAL;
 			status = Document.TYPE_ORIGINAL;
 			files = listFiles(RetrievalSystem.workingDirectory+File.separator+subfolder, DEFAULT_EXTENSION);
+			if(files.size() == 0) {
+				FileSplitter fs = new FileSplitter();
+				fs.createDocumentCollection();
+				files = listFiles(RetrievalSystem.workingDirectory+File.separator+subfolder, DEFAULT_EXTENSION);
+			}
 		}
 			
 		List<Document> documents = new ArrayList<>();
