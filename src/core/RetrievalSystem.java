@@ -10,13 +10,12 @@ public class RetrievalSystem {
 	private static ManagerFrame frame;
 
 	/**
-	 * Name der Software wird immer hinter dem Namen des aktuellen Fensters
-	 * angezeigt
+	 * name of software
 	 */
 	public static final String PRODUCT_NAME = "InformationRetrieval";
 	
 	/**
-	 * Does NOT end with a tailing slash!
+	 * ends NOT with an slash!
 	 */
 	public static String workingDirectory;
 	
@@ -30,7 +29,7 @@ public class RetrievalSystem {
 				}
 			}
 		} catch (Exception e) {
-			// nichts tun
+			// do nothing
 		}
 
 		frame = new ManagerFrame();
@@ -38,7 +37,7 @@ public class RetrievalSystem {
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				// nichts tun
+				// do nothing
 			}
 		}
 	}

@@ -8,7 +8,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 /**
- * Menueleiste am oberen rechten Rand
+ * Menubar
  * 
  * @author Sophie Baschinski
  * @since 09.12.2014
@@ -26,7 +26,7 @@ public class MenuBar extends JMenuBar {
 	private ActionListener alMenuBar = new AlMenu();
 
 	/**
-	 * bekommt einen frame und zeigt MenuBar an
+	 * gets a frame and shows menubar
 	 */
 	public MenuBar(ManagerFrame frame) {
 		this.frame = frame;
@@ -65,6 +65,9 @@ public class MenuBar extends JMenuBar {
 		frame.directoryChooser();
 	}
 
+	/**
+	 * ActionListener
+	 */
 	private class AlMenu implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {

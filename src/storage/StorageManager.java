@@ -30,6 +30,13 @@ public class StorageManager {
 		return load(true, true);
 	}
 	
+	/**
+	 * loads and returns all the documents which are available for the search
+	 * 
+	 * @param eliminateStopwords should stopwords get eliminated or not
+	 * @param useStemming use stemming or not
+	 * @return loaded (and maybe edited) documents
+	 */
 	public static List<Document> load(boolean eliminateStopwords, boolean useStemming) {
 		boolean saveDocuments = false;
 		int status = getType(eliminateStopwords, useStemming);
@@ -39,12 +46,18 @@ public class StorageManager {
 		
 		List<String> files = listFiles(RetrievalSystem.workingDirectory+File.separator+subfolder, DEFAULT_EXTENSION);
 		saveDocuments = files.size() == 0;
+		
+		// if there are no edited documents to load use original documents
 		if(saveDocuments) {
 			subfolder = FOLDER_ORIGINAL;
 			status = Document.TYPE_ORIGINAL;
 			files = listFiles(RetrievalSystem.workingDirectory+File.separator+subfolder, DEFAULT_EXTENSION);
 		}
-			
+		
+		/**
+		 * do stopword elimination and/or stemming for each document
+		 * depending on parameters
+		 */
 		List<Document> documents = new ArrayList<>();
 		for(String filename : files) {
 			String[] parts = filename.split("\\"+File.separator);
@@ -56,18 +69,32 @@ public class StorageManager {
 			 
 			documents.add(doc);
 			
+			// only save documents when they didn't existed till now
 			if(saveDocuments)
 				doc.save();
 		}
 		return documents;
 	}
 	
+	/**
+	 * saving a document on the file system
+	 * 
+	 * @param filename name of the file
+	 * @param content content of the file
+	 * @param type defines the folder to be saved in
+	 */
 	public static void saveDocument(String filename, String content, int type) {
 		String folder = getFoldername(type);	
 		ensureFolderExists(RetrievalSystem.workingDirectory, folder);
 		save(RetrievalSystem.workingDirectory+File.separator+folder+File.separator+filename+DEFAULT_EXTENSION, content);
 	}
 	
+	/**
+	 * properly saving a string on the given path
+	 * 
+	 * @param path defines the location to save
+	 * @param content defines the content to save
+	 */
 	public static void save(String path, String content) {		
 		FileWriter fw = null;
 		try {
@@ -105,6 +132,14 @@ public class StorageManager {
 	   return content;
 	}
     
+	/**
+	 * returns a list of strings containing all file-paths 
+	 * with the desired type
+	 * 
+	 * @param path the path to find the files
+	 * @param filetype the type of the files to be returned
+	 * @return a list of strings which contains the paths of the files
+	 */
     private static List<String> listFiles(String path, String filetype) {
 		List<String> result = new ArrayList<String>();
 		
@@ -128,6 +163,13 @@ public class StorageManager {
 		return result;
     }
     
+    /**
+     * function to ensure that specific folders exists
+     * if not, create the folder
+     * 
+     * @param path the path where the folder should be
+     * @param foldername the name of the folder
+     */
     private static void ensureFolderExists(String path, String foldername) {
     	File root = new File( path );
         File[] list = root.listFiles();
@@ -147,6 +189,13 @@ public class StorageManager {
         	(new File(path+File.separator+foldername)).mkdirs();
     }
     
+    /**
+     * returns the type of the document depending on the parameters
+     * 
+     * @param stopwords true if stopwords are deleted
+     * @param stemming true if stemming happened
+     * @return type of document
+     */
     private static int getType(boolean stopwords, boolean stemming) {
     	if(!stopwords && !stemming)
     		return Document.TYPE_ORIGINAL;
@@ -158,6 +207,13 @@ public class StorageManager {
     		return Document.TYPE_BOTH;
     }
     
+    /**
+     * returns the name of the folder, where a document should
+     * be saved, depending on the documents type
+     * 
+     * @param type
+     * @return
+     */
     private static String getFoldername(int type) {
     	switch(type) {
     	case Document.TYPE_BOTH:

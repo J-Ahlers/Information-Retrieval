@@ -8,6 +8,8 @@ import java.util.List;
 import model.Document;
 
 /**
+ * interface
+ * 
  * @author Jonas Ahlers
  *
  */

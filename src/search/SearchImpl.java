@@ -16,6 +16,11 @@ public class SearchImpl implements Search {
 
 	private Search search;
 	
+	/**
+	 * starts at the moment just the linear search
+	 * 
+	 * @param strategy the strategy for the search
+	 */
 	public SearchImpl(int strategy) {
 		switch(strategy) {
 		case STRATEGY_LINEAR:

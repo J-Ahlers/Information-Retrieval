@@ -3,7 +3,6 @@
  */
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -16,6 +15,8 @@ import javax.swing.JPanel;
 import storage.WorkingDirectory;
 
 /**
+ * MainWindow
+ * 
  * @author Sophie Baschinski
  * @since 15.05.2015 
  */
@@ -32,7 +33,7 @@ public class MainWindow extends JPanel {
 	private AlMainMenu alMainMenu = new AlMainMenu();
 
 	/**
-	 * bekommt einen frame und zeigt Hauptmenue an
+	 * gets a frame and shows main window
 	 */
 	public MainWindow(ManagerFrame frame) {
 		this.frame = frame;
@@ -58,6 +59,10 @@ public class MainWindow extends JPanel {
 		panel.add(bContinue);
 		panel.add(bClose);
 		
+		/** 
+		 * if no working directory was already chosen
+		 * the continue button is not enabled
+		 */
 		if (!WorkingDirectory.load())
 			bContinue.setEnabled(false);
 
@@ -67,23 +72,28 @@ public class MainWindow extends JPanel {
 	}
 
 	/**
-	 * zeigt chooseDirectory-Fenster an
+	 * shows chooseDirectory window
+	 * and enables the continue button
 	 */
 	private void chooseDirectory() {
 		bContinue.setEnabled(true);
 		frame.directoryChooser();
 	}
 
+	/**
+	 * shows searching window
+	 */
 	private void continueToSearch() {
-		frame.getContentPane().removeAll();		
-		SearchWindow searchWindow = new SearchWindow(frame);
-		frame.add(searchWindow, BorderLayout.CENTER);
-		frame.validate();
-		frame.repaint();
+		frame.showSearchWindow();
+		//frame.getContentPane().removeAll();		
+		//SearchWindow searchWindow = new SearchWindow(frame);
+		//frame.add(searchWindow, BorderLayout.CENTER);
+		//frame.validate();
+		//frame.repaint();
 	}
 	
 	/**
-	 * schlie�t das Programm
+	 * closes the program
 	 */
 	private void closeSystem() {
 		System.exit(0);

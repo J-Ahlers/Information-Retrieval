@@ -7,11 +7,14 @@ import storage.StorageManager;
 import utils.StopWordEliminator;
 
 /**
+ * Document class
+ * 
  * @author Jonas Ahlers
  *
  */
 public class Document {
 
+	// document-type (is the doc already manipulated or not)
 	public static final int TYPE_ORIGINAL = 0;
 	public static final int TYPE_STOPWORDS_ELIMINATED = 1;
 	public static final int TYPE_STEMMING = 2;
@@ -69,6 +72,9 @@ public class Document {
 		return title.toLowerCase().replace(" ", "_");
 	}
 	
+	/**
+	 * eliminates stopwords if not already happened
+	 */
 	public void eliminateStopwords() {
 		if(type == TYPE_STOPWORDS_ELIMINATED || type == TYPE_BOTH)
 			return;
@@ -78,6 +84,9 @@ public class Document {
 		setType(TYPE_STOPWORDS_ELIMINATED);
 	}
 	
+	/**
+	 * uses stemming if not already done
+	 */
 	public void useStemming() {
 		// Not implemented yet
 		if(type == TYPE_STEMMING || type == TYPE_BOTH)
@@ -86,10 +95,16 @@ public class Document {
 		setType(TYPE_STEMMING);
 	}
 	
+	/**
+	 * load original document
+	 */
 	public void loadOriginal() {
 		setContent(StorageManager.readFile(getFilename()));
 	}
 	
+	/**
+	 * @param newType the type to set
+	 */
 	private void setType(int newType) {
 		if(type == TYPE_ORIGINAL)
 			type = newType;

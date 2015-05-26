@@ -21,6 +21,9 @@ import search.Search;
 import search.SearchImpl;
 
 /**
+ * search window to get the search terms and
+ * the search parameters
+ * 
  * @author Sophie Baschinski
  * @since 15.05.2015
  */
@@ -44,6 +47,9 @@ public class SearchWindow extends JPanel {
 
 	private AlSearchWindow alSearchWindow = new AlSearchWindow();
 	
+	/**
+	 * gets a frame and shows search window
+	 */
 	public SearchWindow(ManagerFrame frame) {
 		this.frame = frame;
 		frame.setTitle("Search Window");
@@ -55,7 +61,6 @@ public class SearchWindow extends JPanel {
 		bConfirm.setText("Search");
 
 		this.add(panelNorth, BorderLayout.PAGE_START);
-		//this.add(panelCenter, BorderLayout.CENTER);
 		this.add(panelSouth, BorderLayout.PAGE_END);
 
 		panelNorth.add(label);
@@ -67,6 +72,10 @@ public class SearchWindow extends JPanel {
 		bConfirm.addActionListener(alSearchWindow);
 	}
 	
+	/**
+	 * confirm-button to start the search;
+	 * splits search terms and saves search parameters
+	 */
 	private void confirm() {
 		searchTerms = Arrays.asList(tfSearchWord.getText().split(" "));
 		sWE = cbSWE.isSelected();
@@ -83,6 +92,9 @@ public class SearchWindow extends JPanel {
 		}
 	}
 	
+	/**
+	 * ActionListener
+	 */
 	private class AlSearchWindow implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {

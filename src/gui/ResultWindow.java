@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import model.Document;
 
 /**
+ * Result window, shows the result of the search
+ * 
  * @author Sophie Baschinski
  * @since 15.05.2015
  *
@@ -30,6 +32,9 @@ public class ResultWindow extends JPanel {
 	
 	private AlResultWindow alResultWindow = new AlResultWindow();
 	
+	/**
+	 * gets a frame and shows the result window
+	 */
 	public ResultWindow(ManagerFrame frame, List<Document> result) {
 		this.frame = frame;
 		frame.setTitle("Result Window");
@@ -53,7 +58,6 @@ public class ResultWindow extends JPanel {
 			JTextField tfSearchWord = new JTextField(20);
 			tfSearchWord.setText(res.getTitle());
 			jplPanel.add(tfSearchWord);
-			
 		}
 		
 		panelNorth.add(jplPanel);
@@ -61,10 +65,16 @@ public class ResultWindow extends JPanel {
 		bConfirm.addActionListener(alResultWindow);
 	}
 	
+	/**
+	 * under construction!
+	 */
 	private void confirm() {
 		//!TODO do sth
 	}
 	
+	/**
+	 * ActionListener
+	 */
 	private class AlResultWindow implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent event) {

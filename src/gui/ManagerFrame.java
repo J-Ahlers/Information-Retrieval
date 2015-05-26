@@ -12,7 +12,7 @@ import storage.WorkingDirectory;
 import core.RetrievalSystem;
 
 /**
- * Zentrales Fenster
+ * Manager Frame
  * 
  * @author Sophie Baschinski
  * @since 09.12.2014
@@ -24,7 +24,7 @@ public class ManagerFrame extends JFrame {
 	private MenuBar menuBar = new MenuBar(this);
 
 	/**
-	 * Erzeugt Frame, zeigt Hauptmenue an
+	 * creates frame
 	 */
 	public ManagerFrame() {
 		setLayout(new BorderLayout());
@@ -45,7 +45,7 @@ public class ManagerFrame extends JFrame {
 	}
 
 	/**
-	 * leert den aktuell angezeigten Bildschirm, zeigt das Hauptmenue an
+	 * empties the screen and shows the main window
 	 */
 	public void showMainWindow() {
 		this.getContentPane().removeAll();
@@ -54,6 +54,9 @@ public class ManagerFrame extends JFrame {
 		this.repaint();
 	}
 
+	/**
+	 * empties the screen and shows the searching window
+	 */
 	public void showSearchWindow() {
 	    this.getContentPane().removeAll();		
 		SearchWindow searchWindow = new SearchWindow(this);
@@ -63,8 +66,7 @@ public class ManagerFrame extends JFrame {
 	}
 	
 	/**
-	 * leert den aktuell angezeigten Bildschirm, zeigt das
-	 * CreateCollection-Fenster an
+	 * shows window to choose working directory
 	 */
 	public void directoryChooser() {
 	    JFileChooser chooser = new JFileChooser();
@@ -74,23 +76,19 @@ public class ManagerFrame extends JFrame {
 	    chooser.setAcceptAllFileFilterUsed(false);
 
 	    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-		    System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
-		    System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
-		    
 		    RetrievalSystem.workingDirectory = chooser.getSelectedFile().getAbsolutePath();
 		    WorkingDirectory.save();
 		    FileSplitter fs = new FileSplitter();
 			fs.createDocumentCollection();
-		    
+		    // opens search-window
 			showSearchWindow();
 	    } else {
-	    	System.out.println("No Selection ");
+	    	System.out.println("No Selection of Working Directory!");
 	    }
 	}
 	
 	/**
-	 * Titel des Fensters setzen, bestehend aus Titel des aktuellen Fensters -
-	 * Image Retrieval
+	 * titel of the window
 	 */
 	@Override
 	public void setTitle(String title) {
