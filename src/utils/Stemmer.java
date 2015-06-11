@@ -54,18 +54,18 @@ public class Stemmer {
 
 	private String step1A(String word) {
 		if (word.endsWith("sses")) {
-			word = word.substring(0, word.length() - 4) + "ss";
+			word = word.substring(0, word.length() - 5) + "ss";
 			return word;
 		} 
 		else if (word.endsWith("ies")) {
-			word = word.substring(0, word.length() - 3) + "i";
+			word = word.substring(0, word.length() - 4) + "i";
 			return word;
 		} 
 		else if (word.endsWith("ss")) {
 			return word;
 		} 
 		else if (word.endsWith("s")) {
-			word = word.substring(0, word.length() - 1) + "ss";
+			word = word.substring(0, word.length() - 2) + "ss";
 			return word;
 		} 
 		else {
@@ -81,9 +81,9 @@ public class Stemmer {
 		} 
 		else if (word.endsWith("ed") || word.endsWith("ing")) {
 			if (word.endsWith("ed"))
-				stem = word.substring(0, word.length() - 2);
-			else 
 				stem = word.substring(0, word.length() - 3);
+			else 
+				stem = word.substring(0, word.length() - 4);
 			
 			if (containsVowel(stem)) {
 				word = stem;
@@ -105,7 +105,7 @@ public class Stemmer {
 			return word;
 		} 
 		else if (endsWithDouble(word) && !(word.endsWith("l") || word.endsWith("s") || word.endsWith("z"))) {
-			word = word.substring(0, word.length() - 1);
+			word = word.substring(0, word.length() - 2);
 			return word;
 		} 
 		else if (endsWithCVC(word)) {
@@ -124,7 +124,7 @@ public class Stemmer {
 	}
 
 	private String step1c(String word) {
-		String stem = word.substring(0, word.length() - 1);
+		String stem = word.substring(0, word.length() - 2);
 		if (word.endsWith("y") && containsVowel(stem)) {
 			word = stem + "i";
 			return word;
@@ -135,7 +135,7 @@ public class Stemmer {
 	}
 
 	private String step2(String word) {
-		char penultimateLetter = word.charAt(word.length() - 1);
+		char penultimateLetter = word.charAt(word.length() - 2);
 		
 		switch (penultimateLetter) {
 		case 'a':
@@ -277,7 +277,7 @@ public class Stemmer {
 			return checkM(word, "ent", "", 1);
 		} 
 		else if (word.endsWith("ion")) {
-			if (word.substring(0, word.length() - 3).endsWith("s") || word.substring(0, word.length() - 3).endsWith("t")) {
+			if (word.substring(0, word.length() - 4).endsWith("s") || word.substring(0, word.length() - 4).endsWith("t")) {
 				return checkM(word, "ion", "", 1);
 			}
 			else {
@@ -310,7 +310,7 @@ public class Stemmer {
 
 	private String step5a(String word) {
 		if (word.endsWith("e")) {
-			String stem = word.substring(0, word.length() - 1);
+			String stem = word.substring(0, word.length() - 2);
 			int m = calculateM(stem);
 			if (m > 1) {
 				return stem;
@@ -331,7 +331,7 @@ public class Stemmer {
 		if (endsWithDouble(word) && word.endsWith("l")) {
 			int m = calculateM(word);
 			if (m > 1) {
-				word = word.substring(0, word.length() - 1);
+				word = word.substring(0, word.length() - 2);
 				return word;
 			}
 		} 
@@ -339,7 +339,7 @@ public class Stemmer {
 	}
 
 	private String checkM(String word, String oldSuffix, String newSuffix, int num) {
-		String stem = word.substring(0, word.length() - oldSuffix.length());
+		String stem = word.substring(0, word.length() - oldSuffix.length() - 1);
 		int m = calculateM(stem);
 		if (m > num) {
 			word = stem + newSuffix;
@@ -360,7 +360,7 @@ public class Stemmer {
 		while (!containsVowel(String.valueOf(stem.charAt(i)))) {
 			i++;
 		}
-		restStem = stem.substring(i, stem.length());
+		restStem = stem.substring(i, stem.length()-1);
 		
 		// erase all last vowels
 		i = restStem.length() - 1;
@@ -424,7 +424,7 @@ public class Stemmer {
 	}
 	
 	private boolean endsWithDouble(String word) {
-		return (word.charAt(word.length()) == word.charAt(word.length() - 1));
+		return (word.charAt(word.length()) == word.charAt(word.length() - 2));
 	}
 	
 	private boolean endsWithCVC(String word) {
