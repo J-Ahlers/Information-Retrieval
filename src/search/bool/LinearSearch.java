@@ -43,16 +43,21 @@ public class LinearSearch implements Search {
 		boolean result = true;
 		for(String term : terms) {
 			// if one search term is a stopword, ignore it
-			if(StopWordEliminator.isStopword(term))
+			boolean stopword = StopWordEliminator.isStopword(term);
+			if( stopword && ( doc.getType() == Document.TYPE_STOPWORDS_ELIMINATED || doc.getType() == Document.TYPE_BOTH )) {
+				result = false;
 				continue;
+			}
 			
 			boolean inTitle = doc.getTitle().contains(" "+term.toLowerCase()+" ");
 			boolean inContent = doc.getContent().contains(" "+term.toLowerCase()+" ");
 			result = result && ( inTitle || inContent );
-			if(result)
-				result = true;
+			
+			if(!result)
+				break;
+			
 		}
-		return result;
+		return result && !terms.isEmpty();
 	}
 
 

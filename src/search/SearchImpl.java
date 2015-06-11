@@ -3,12 +3,15 @@
  */
 package search;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Document;
 import search.bool.InvertedList;
 import search.bool.LinearSearch;
 import utils.PrecisionAndRecall;
+import utils.Stemmer;
+import utils.StopWordEliminator;
 
 /**
  * @author Jonas Ahlers
@@ -40,6 +43,29 @@ public class SearchImpl implements Search {
 	
 	@Override
 	public List<Document> getDocumentMatches(List<String> terms, boolean eliminateStopwords, boolean useStemming) {
+		if(eliminateStopwords) {
+			List<String> tmpTerms = new ArrayList<>();
+			for(String term : terms) {
+				if(StopWordEliminator.isStopword(term))
+					continue;
+				else
+					tmpTerms.add(term);
+			}
+			terms = tmpTerms;
+		}
+		
+		if(terms.isEmpty() || terms.get(0).equals(""))
+			return new ArrayList<Document>();
+		
+		if(useStemming) {
+			List<String> tmpTerms = new ArrayList<>();
+			Stemmer st = new Stemmer();
+			for(String term : terms) {
+				tmpTerms.add(st.getStemmedContent(term));
+			}
+			terms = tmpTerms;
+		}
+		
 		this.result = search.getDocumentMatches(terms, eliminateStopwords, useStemming);
 		this.terms = terms;
 		return result;
