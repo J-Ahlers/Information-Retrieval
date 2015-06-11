@@ -55,8 +55,8 @@ public class ResultWindow extends JPanel {
 		JPanel jplPanel = new JPanel();
 		jplPanel.setLayout(new BoxLayout(jplPanel, BoxLayout.Y_AXIS));
 		for(Document res : result) {
-			JTextField tfSearchWord = new JTextField(20);
-			tfSearchWord.setText(res.getId()+" | "+res.getTitle());
+			JTextField tfSearchWord = new JTextField(60);
+			tfSearchWord.setText(res.getTitle());
 			jplPanel.add(tfSearchWord);
 		}
 		
