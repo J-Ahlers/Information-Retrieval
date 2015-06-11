@@ -30,6 +30,7 @@ public class Document {
 		setId(id);
 		setTitle(title);
 		setContent(content);
+		setType(type);
 	}
 	
 	public int getId() {
@@ -125,5 +126,9 @@ public class Document {
 			type = TYPE_BOTH;
 		else if(type == TYPE_STEMMING && newType == TYPE_STOPWORDS_ELIMINATED)
 			type = TYPE_BOTH;
+	}
+	
+	public int getType() {
+		return this.type;
 	}
 }

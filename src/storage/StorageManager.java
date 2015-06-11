@@ -114,7 +114,7 @@ public class StorageManager {
 			if(file_id != id)
 				continue;
 			
-			String name = parts[1];
+			String name = parts[1].replace(DEFAULT_EXTENSION, "");
 			document = new Document(id, name, readFile(filename), status);
 			if(eliminateStopwords)
 				document.eliminateStopwords();
@@ -132,7 +132,8 @@ public class StorageManager {
 	 * @param type defines the folder to be saved in
 	 */
 	public static void saveDocument(String filename, String content, int type) {
-		String folder = getFoldername(type);	
+		String folder = getFoldername(type);
+		filename = filename.replace(DEFAULT_EXTENSION, "");
 		ensureFolderExists(RetrievalSystem.workingDirectory, folder);
 		save(RetrievalSystem.workingDirectory+File.separator+folder+File.separator+filename+DEFAULT_EXTENSION, content);
 	}
