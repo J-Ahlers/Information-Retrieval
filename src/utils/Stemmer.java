@@ -28,6 +28,7 @@ public class Stemmer {
 	 */
 	public String getStemmedContent(String content) {
 		content = content.replace("'", "");
+		content = content.replace("\\s+", " ");
 		contentWords = Arrays.asList(content.split(" "));
 		stemmedWords = new ArrayList<String>();
 		String stem;
@@ -374,13 +375,16 @@ public class Stemmer {
 		
 		// erase all first consonants
 		int i = 0;
-		while (!containsVowel(String.valueOf(stem.charAt(i)))) {
+		while (i != stem.length() && !containsVowel(String.valueOf(stem.charAt(i)))) {
 			i++;
 		}
 		restStem = stem.substring(i, stem.length());
 		
 		// erase all last vowels
-		i = restStem.length() - 1;
+		if (restStem.isEmpty())
+			i = 0;
+		else
+			i = restStem.length() - 1;
 			
 		while (i != 0 && containsVowel(String.valueOf(restStem.charAt(i)))) {
 			i--;
