@@ -40,11 +40,17 @@ public class Stemmer {
 			stem = step1b(stem);
 			System.out.println(stem);
 			stem = step1c(stem);
+			System.out.println(stem);
 			stem = step2(stem);
+			System.out.println(stem);
 			stem = step3(stem);
+			System.out.println(stem);
 			stem = step4(stem);
+			System.out.println(stem);
 			stem = step5a(stem);
+			System.out.println(stem);
 			stem = step5b(stem);
+			System.out.println(stem);
 			stemmedWords.add(stem);
 		}
 		
@@ -70,7 +76,7 @@ public class Stemmer {
 			return word;
 		} 
 		else if (word.endsWith("s")) {
-			word = word.substring(0, word.length() - 1) + "ss";
+			word = word.substring(0, word.length() - 1);
 			return word;
 		} 
 		else {
@@ -142,8 +148,12 @@ public class Stemmer {
 	}
 
 	private String step2(String word) {
-		char penultimateLetter = word.charAt(word.length() - 2);
-		
+		char penultimateLetter;
+		if (word.length() > 1)
+			penultimateLetter = word.charAt(word.length() - 2);
+		else
+			penultimateLetter = 'z';
+			
 		switch (penultimateLetter) {
 		case 'a':
 			if (word.endsWith("ational")) {
@@ -335,7 +345,7 @@ public class Stemmer {
 	}
 
 	private String step5b(String word) {
-		if (endsWithDouble(word) && word.endsWith("l")) {
+		if (word.length() > 1 && endsWithDouble(word) && word.endsWith("l")) {
 			int m = calculateM(word);
 			if (m > 1) {
 				word = word.substring(0, word.length() - 1);
