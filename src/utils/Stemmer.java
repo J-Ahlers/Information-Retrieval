@@ -59,18 +59,18 @@ public class Stemmer {
 
 	private String step1A(String word) {
 		if (word.endsWith("sses")) {
-			word = word.substring(0, word.length() - 5) + "ss";
+			word = word.substring(0, word.length() - 4) + "ss";
 			return word;
 		} 
 		else if (word.endsWith("ies")) {
-			word = word.substring(0, word.length() - 4) + "i";
+			word = word.substring(0, word.length() - 3) + "i";
 			return word;
 		} 
 		else if (word.endsWith("ss")) {
 			return word;
 		} 
 		else if (word.endsWith("s")) {
-			word = word.substring(0, word.length() - 2) + "ss";
+			word = word.substring(0, word.length() - 1) + "ss";
 			return word;
 		} 
 		else {
@@ -86,9 +86,9 @@ public class Stemmer {
 		} 
 		else if (word.endsWith("ed") || word.endsWith("ing")) {
 			if (word.endsWith("ed"))
-				stem = word.substring(0, word.length() - 3);
+				stem = word.substring(0, word.length() - 2);
 			else 
-				stem = word.substring(0, word.length() - 4);
+				stem = word.substring(0, word.length() - 3);
 			
 			if (containsVowel(stem)) {
 				word = stem;
@@ -110,7 +110,7 @@ public class Stemmer {
 			return word;
 		} 
 		else if (endsWithDouble(word) && !(word.endsWith("l") || word.endsWith("s") || word.endsWith("z"))) {
-			word = word.substring(0, word.length() - 2);
+			word = word.substring(0, word.length() - 1);
 			return word;
 		} 
 		else if (endsWithCVC(word)) {
@@ -131,7 +131,7 @@ public class Stemmer {
 	private String step1c(String word) {
 		if( word.length() - 2 == -1)
 			System.out.println(word);
-		String stem = word.substring(0, word.length() - 2);
+		String stem = word.substring(0, word.length() - 1);
 		if (word.endsWith("y") && containsVowel(stem)) {
 			word = stem + "i";
 			return word;
@@ -284,7 +284,7 @@ public class Stemmer {
 			return checkM(word, "ent", "", 1);
 		} 
 		else if (word.endsWith("ion")) {
-			if (word.substring(0, word.length() - 4).endsWith("s") || word.substring(0, word.length() - 4).endsWith("t")) {
+			if (word.substring(0, word.length() - 3).endsWith("s") || word.substring(0, word.length() - 3).endsWith("t")) {
 				return checkM(word, "ion", "", 1);
 			}
 			else {
@@ -317,7 +317,7 @@ public class Stemmer {
 
 	private String step5a(String word) {
 		if (word.endsWith("e")) {
-			String stem = word.substring(0, word.length() - 2);
+			String stem = word.substring(0, word.length() - 1);
 			int m = calculateM(stem);
 			if (m > 1) {
 				return stem;
@@ -338,7 +338,7 @@ public class Stemmer {
 		if (endsWithDouble(word) && word.endsWith("l")) {
 			int m = calculateM(word);
 			if (m > 1) {
-				word = word.substring(0, word.length() - 2);
+				word = word.substring(0, word.length() - 1);
 				return word;
 			}
 		} 
@@ -346,7 +346,7 @@ public class Stemmer {
 	}
 
 	private String checkM(String word, String oldSuffix, String newSuffix, int num) {
-		String stem = word.substring(0, word.length() - oldSuffix.length() - 1);
+		String stem = word.substring(0, word.length() - oldSuffix.length());
 		int m = calculateM(stem);
 		if (m > num) {
 			word = stem + newSuffix;
@@ -367,7 +367,7 @@ public class Stemmer {
 		while (!containsVowel(String.valueOf(stem.charAt(i)))) {
 			i++;
 		}
-		restStem = stem.substring(i, stem.length()-1);
+		restStem = stem.substring(i, stem.length());
 		
 		// erase all last vowels
 		i = restStem.length() - 1;
@@ -375,7 +375,7 @@ public class Stemmer {
 		while (i != 0 && containsVowel(String.valueOf(restStem.charAt(i)))) {
 			i--;
 		}
-		restStem = stem.substring(0, i);
+		restStem = stem.substring(0, i + 1);
 		
 		if (i > 0) {
 			m = containsVCviaPattern(restStem);
@@ -404,7 +404,7 @@ public class Stemmer {
 //			while(containsVowel(String.valueOf(restStem.charAt(i)))) {
 //				i++;
 //			}
-//			restStem = restStem.substring(i, restStem.length()-1);
+//			restStem = restStem.substring(i, restStem.length());
 //			i = 0;
 //			
 //			while (!containsVowel(String.valueOf(restStem.charAt(i)))) {
@@ -416,7 +416,7 @@ public class Stemmer {
 //				restStem = "";
 //			}
 //			else {
-//				restStem = restStem.substring(i, restStem.length()-1);
+//				restStem = restStem.substring(i, restStem.length());
 //			}
 //			m++;
 //		}
