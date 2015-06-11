@@ -61,7 +61,7 @@ public class Stemmer {
 			stemmedWordsString += s + " ";
 		}
 		
-		return stemmedWordsString;
+		return stemmedWordsString.substring(0, stemmedWordsString.length()-1);
 	}
 
 	private String step1A(String word) {
