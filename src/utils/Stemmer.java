@@ -389,9 +389,9 @@ public class Stemmer {
 		while (i != 0 && containsVowel(String.valueOf(restStem.charAt(i)))) {
 			i--;
 		}
-		restStem = stem.substring(0, i + 1);
 		
 		if (i > 0) {
+			restStem = restStem.substring(0, i + 1);
 			m = containsVCviaPattern(restStem);
 			return m;
 		}
