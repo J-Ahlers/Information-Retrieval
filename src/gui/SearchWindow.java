@@ -79,8 +79,7 @@ public class SearchWindow extends JPanel {
 	private void confirm() {
 		searchTerms = Arrays.asList(tfSearchWord.getText().split(" "));
 		sWE = cbSWE.isSelected();
-		//stemming = cbStemming.isSelected();
-		stemming = false;
+		stemming = cbStemming.isSelected();
 		if (!searchTerms.isEmpty()) {
 			Search search = new SearchImpl(Search.STRATEGY_LINEAR);
 			result = search.getDocumentMatches(searchTerms, sWE, stemming);
