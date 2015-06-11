@@ -4,6 +4,7 @@
 package model;
 
 import storage.StorageManager;
+import utils.Stemmer;
 import utils.StopWordEliminator;
 
 /**
@@ -102,6 +103,8 @@ public class Document {
 		if(type == TYPE_STEMMING || type == TYPE_BOTH)
 			return;
 		
+		Stemmer st = new Stemmer();
+		setContent(st.getStemmedContent(getContent()));
 		setType(TYPE_STEMMING);
 	}
 	

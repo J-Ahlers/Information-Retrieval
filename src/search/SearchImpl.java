@@ -6,6 +6,7 @@ package search;
 import java.util.List;
 
 import model.Document;
+import search.bool.InvertedList;
 import search.bool.LinearSearch;
 import utils.PrecisionAndRecall;
 
@@ -28,6 +29,9 @@ public class SearchImpl implements Search {
 		switch(strategy) {
 		case STRATEGY_LINEAR:
 			this.search = new LinearSearch();
+			break;
+		case STRATEGY_INVERTED_LIST:
+			this.search = new InvertedList();
 			break;
 		default:
 			this.search = new LinearSearch();		

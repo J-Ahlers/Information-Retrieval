@@ -32,8 +32,13 @@ public class Stemmer {
 		stemmedWords = new ArrayList<String>();
 		String stem;
 		for (String word : contentWords) {
+			if(word.equals(""))
+				continue;
+			System.out.println(word);
 			stem = step1A(word);
+			System.out.println(stem);
 			stem = step1b(stem);
+			System.out.println(stem);
 			stem = step1c(stem);
 			stem = step2(stem);
 			stem = step3(stem);
@@ -124,6 +129,8 @@ public class Stemmer {
 	}
 
 	private String step1c(String word) {
+		if( word.length() - 2 == -1)
+			System.out.println(word);
 		String stem = word.substring(0, word.length() - 2);
 		if (word.endsWith("y") && containsVowel(stem)) {
 			word = stem + "i";
@@ -364,10 +371,9 @@ public class Stemmer {
 		
 		// erase all last vowels
 		i = restStem.length() - 1;
-		while (containsVowel(String.valueOf(restStem.charAt(i)))) {
+			
+		while (i != 0 && containsVowel(String.valueOf(restStem.charAt(i)))) {
 			i--;
-			if (i==0)
-				break;
 		}
 		restStem = stem.substring(0, i);
 		
@@ -424,7 +430,7 @@ public class Stemmer {
 	}
 	
 	private boolean endsWithDouble(String word) {
-		return (word.charAt(word.length()) == word.charAt(word.length() - 2));
+		return (word.charAt(word.length() - 1) == word.charAt(word.length() - 2));
 	}
 	
 	private boolean endsWithCVC(String word) {
