@@ -50,8 +50,14 @@ public class StorageManager {
 		// if there are no edited documents to load use original documents
 		if(saveDocuments) {
 			subfolder = FOLDER_ORIGINAL;
+			ensureFolderExists(RetrievalSystem.workingDirectory, subfolder);
 			status = Document.TYPE_ORIGINAL;
 			files = listFiles(RetrievalSystem.workingDirectory+File.separator+subfolder, DEFAULT_EXTENSION);
+			if(files.size() == 0) {
+				FileSplitter fs = new FileSplitter();
+				fs.createDocumentCollection();
+				load(eliminateStopwords, useStemming);
+			}
 		}
 		
 		/**
