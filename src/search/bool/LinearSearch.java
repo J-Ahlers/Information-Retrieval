@@ -1,7 +1,7 @@
 /**
  * 
  */
-package search.linear;
+package search.bool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import java.util.List;
 import model.Document;
 import search.Search;
 import storage.StorageManager;
+import utils.PrecisionAndRecall;
 import utils.StopWordEliminator;
 
 /**
@@ -38,8 +39,7 @@ public class LinearSearch implements Search {
 	/**
 	 * returns true if all search terms are in the docs content or title
 	 */
-	@Override
-	public boolean containsTerm(Document doc, List<String> terms) {
+	private boolean containsTerm(Document doc, List<String> terms) {
 		boolean result = true;
 		for(String term : terms) {
 			// if one search term is a stopword, ignore it
@@ -53,5 +53,11 @@ public class LinearSearch implements Search {
 				result = true;
 		}
 		return result;
+	}
+
+
+	@Override
+	public PrecisionAndRecall getPrecisionAndRecall(List<String> terms, List<Document> result) {
+		return new PrecisionAndRecall(terms, result);
 	}
 }

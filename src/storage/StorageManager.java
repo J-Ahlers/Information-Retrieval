@@ -61,7 +61,10 @@ public class StorageManager {
 		List<Document> documents = new ArrayList<>();
 		for(String filename : files) {
 			String[] parts = filename.split("\\"+File.separator);
-			Document doc = new Document(parts[parts.length-1], readFile(filename), status);
+			parts = parts[parts.length-1].split("#");
+			int id = Integer.valueOf(parts[0]);
+			String name = parts[1];
+			Document doc = new Document(id, name, readFile(filename), status);
 			if(eliminateStopwords)
 				doc.eliminateStopwords();
 			if(useStemming)
@@ -74,6 +77,45 @@ public class StorageManager {
 				doc.save();
 		}
 		return documents;
+	}
+	
+	public static List<Document> load(List<Integer> ids, boolean eliminateStopwords, boolean useStemming) {
+		List<Document> result = new ArrayList<>();
+		for(Integer i : ids)
+			result.add(load(i, eliminateStopwords, useStemming));
+		return result;
+	}
+	
+	/**
+	 * loads and returns all the documents which are available for the search
+	 * 
+	 * @param eliminateStopwords should stopwords get eliminated or not
+	 * @param useStemming use stemming or not
+	 * @return loaded (and maybe edited) documents
+	 */
+	public static Document load(int id, boolean eliminateStopwords, boolean useStemming) {
+		int status = getType(eliminateStopwords, useStemming);
+		String subfolder = getFoldername(status);
+		
+		List<String> files = listFiles(RetrievalSystem.workingDirectory+File.separator+subfolder, DEFAULT_EXTENSION);
+
+		Document document = null;
+		for(String filename : files) {
+			String[] parts = filename.split("\\"+File.separator);
+			parts = parts[parts.length-1].split("#");
+			int file_id = Integer.valueOf(parts[0]);
+			
+			if(file_id != id)
+				continue;
+			
+			String name = parts[1];
+			document = new Document(id, name, readFile(filename), status);
+			if(eliminateStopwords)
+				document.eliminateStopwords();
+			if(useStemming)
+				document.useStemming();
+		}
+		return document;
 	}
 	
 	/**

@@ -20,13 +20,23 @@ public class Document {
 	public static final int TYPE_STEMMING = 2;
 	public static final int TYPE_BOTH = 3;
 	
+	private int id;
 	private String title;
 	private String content;
 	private int type;	
 	
-	public Document(String title, String content, int type) {
+	public Document(int id, String title, String content, int type) {
+		setId(id);
 		setTitle(title);
 		setContent(content);
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	/**
@@ -69,7 +79,7 @@ public class Document {
 	}
 	
 	private String getFilename() {
-		return title.toLowerCase().replace(" ", "_");
+		return id+"#"+title.toLowerCase().replace(" ", "_");
 	}
 	
 	/**

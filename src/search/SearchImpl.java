@@ -6,7 +6,8 @@ package search;
 import java.util.List;
 
 import model.Document;
-import search.linear.LinearSearch;
+import search.bool.LinearSearch;
+import utils.PrecisionAndRecall;
 
 /**
  * @author Jonas Ahlers
@@ -15,6 +16,8 @@ import search.linear.LinearSearch;
 public class SearchImpl implements Search {
 
 	private Search search;
+	private List<Document> result;
+	private List<String> terms;
 	
 	/**
 	 * starts at the moment just the linear search
@@ -33,12 +36,24 @@ public class SearchImpl implements Search {
 	
 	@Override
 	public List<Document> getDocumentMatches(List<String> terms, boolean eliminateStopwords, boolean useStemming) {
-		return search.getDocumentMatches(terms, eliminateStopwords, useStemming);
+		this.result = search.getDocumentMatches(terms, eliminateStopwords, useStemming);
+		this.terms = terms;
+		return result;
 	}
 
+	/**
+	 * returns the precision and recall for the specified result
+	 */
 	@Override
-	public boolean containsTerm(Document doc, List<String> terms) {
-		return search.containsTerm(doc, terms);
+	public PrecisionAndRecall getPrecisionAndRecall(List<String> terms, List<Document> result) {
+		return search.getPrecisionAndRecall(terms, result);
 	}
 
+	/**
+	 * returns precision and recall for the last search
+	 * @return
+	 */
+	public PrecisionAndRecall getPrecisionAndRecall() {
+		return search.getPrecisionAndRecall(terms, result);
+	}
 }

@@ -34,7 +34,7 @@ public class FileSplitter {
 			String[] fableparts = fables[i].split("\r\n\r\n\r\n");
 			if(fableparts.length != 2)
 				continue;
-			Document fable = new Document(getTitle(fableparts), getContent(fableparts), Document.TYPE_ORIGINAL);
+			Document fable = new Document(i+1, getTitle(fableparts), getContent(fableparts), Document.TYPE_ORIGINAL);
 			fable.save();
 		}
 	}
