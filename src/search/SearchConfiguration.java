@@ -10,8 +10,10 @@ public class SearchConfiguration {
 
 	private int config = AND;
 	private List<String> terms;
+	private boolean useStopwordElimination;
+	private boolean useStemming;
 	
-	public SearchConfiguration(List<String> terms) {
+	public SearchConfiguration(List<String> terms, boolean useStopwordElimination, boolean useStemming) {
 		List<String> tmp = new ArrayList<String>();
 		for(int i = 0; i < terms.size(); i++) {
 			if(terms.size() == 3 && i == 1) {
@@ -27,6 +29,8 @@ public class SearchConfiguration {
 			tmp.add(terms.get(i));
 		}
 		this.terms = tmp;
+		this.useStemming = useStemming;
+		this.useStopwordElimination = useStopwordElimination;
 	}
 	
 	public List<String> getTerms() {
@@ -39,6 +43,14 @@ public class SearchConfiguration {
 	
 	public int getType() {
 		return config;
+	}
+	
+	public boolean useStemming() {
+		return useStemming;
+	}
+	
+	public boolean useStopwordElimination() {
+		return useStopwordElimination;
 	}
 	
 }

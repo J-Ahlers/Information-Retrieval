@@ -15,31 +15,28 @@ import utils.PrecisionAndRecall;
 public class InvertedList extends SearchImpl {
 	
 	@Override
-	public List<Document> getDocumentMatches(SearchConfiguration config,
-			boolean eliminateStopwords, boolean useStemming) {
-		HashMap<String, List<Integer>> hm = InvertedListStorage.getInstance(eliminateStopwords, useStemming).getHashMap();
-		return getDocumentMatches(hm, config, eliminateStopwords, useStemming);
+	public List<Document> getDocumentMatches(SearchConfiguration config) {
+		HashMap<String, List<Integer>> hm = InvertedListStorage.getInstance(config).getHashMap();
+		return getDocumentMatches(hm, config);
 	}
 	
-	public static List<Document> getDocumentMatches(HashMap<String, List<Integer>> hm, SearchConfiguration config,
-			boolean eliminateStopwords, boolean useStemming) {
+	public static List<Document> getDocumentMatches(HashMap<String, List<Integer>> hm, SearchConfiguration config) {
 		List<List<Integer>> resultIds = new ArrayList<>();
 		
 		for(String term : config.getTerms()) {			
 			List<Integer> findings = hm.get(term);
-			StorageManager.saveDocument("hashmap", hm.toString(), 0);
+			//StorageManager.saveDocument("hashmap", hm.toString(), 0);
 			if(findings != null) {
 				resultIds.add(findings);
 			}
 		}
 		
 		List<Integer> docIds = BooleanLogic.applyBooleanLogic(config, resultIds);		
-		return StorageManager.load(docIds, eliminateStopwords, useStemming);
+		return StorageManager.load(docIds, config.useStopwordElimination(), config.useStemming());
 	}
 
 	@Override
-	public PrecisionAndRecall getPrecisionAndRecall(SearchConfiguration config,
-			List<Document> result) {
+	public PrecisionAndRecall getPrecisionAndRecall(SearchConfiguration config, List<Document> result) {
 		return new PrecisionAndRecall(config, result);
 	}
 

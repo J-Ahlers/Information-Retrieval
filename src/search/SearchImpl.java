@@ -46,8 +46,8 @@ public class SearchImpl implements Search {
 	}
 	
 	@Override
-	public List<Document> getDocumentMatches(SearchConfiguration config, boolean eliminateStopwords, boolean useStemming) {
-		if(eliminateStopwords) {
+	public List<Document> getDocumentMatches(SearchConfiguration config) {
+		if(config.useStopwordElimination()) {
 			List<String> tmpTerms = new ArrayList<>();
 			for(String term : config.getTerms()) {
 				if(StopWordEliminator.isStopword(term))
@@ -61,7 +61,7 @@ public class SearchImpl implements Search {
 		if(config.getTerms().isEmpty() || config.getTerms().get(0).equals(""))
 			return new ArrayList<Document>();
 		
-		if(useStemming) {
+		if(config.useStemming()) {
 			List<String> tmpTerms = new ArrayList<>();
 			Stemmer st = new Stemmer();
 			for(String term : config.getTerms()) {
@@ -70,7 +70,7 @@ public class SearchImpl implements Search {
 			config.setTerms(tmpTerms);
 		}
 		
-		this.result = search.getDocumentMatches(config, eliminateStopwords, useStemming);
+		this.result = search.getDocumentMatches(config);
 		this.config = config;
 		return result;
 	}

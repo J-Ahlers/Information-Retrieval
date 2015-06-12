@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import search.SearchConfiguration;
 import model.Document;
 
 public class InvertedListStorage {
@@ -15,11 +16,11 @@ public class InvertedListStorage {
 	private static Boolean mStopwordsEliminated;
 	private static Boolean mStemming;
 	
-	private InvertedListStorage(boolean stopwordsEliminated, boolean stemming) {
-		mStopwordsEliminated = stopwordsEliminated;
-		mStemming = stemming;
+	private InvertedListStorage(SearchConfiguration config) {
+		mStopwordsEliminated = config.useStopwordElimination();
+		mStemming = config.useStemming();
 		map = new HashMap<>();
-		List<Document> docs = StorageManager.load(stopwordsEliminated, stemming);
+		List<Document> docs = StorageManager.load(config.useStopwordElimination(), config.useStemming());
 		for(Document doc : docs) {
 			String[] words = doc.getContent().split(" ");
 			for(String word : words) {
@@ -41,12 +42,12 @@ public class InvertedListStorage {
 		}
 	}
 	
-	public static InvertedListStorage getInstance(boolean stopwordsEliminated, boolean stemming) {
+	public static InvertedListStorage getInstance(SearchConfiguration config) {
 		boolean nullInstance = mInstance == null;
-		boolean stopwordsChanged = mStopwordsEliminated != null && mStopwordsEliminated != stopwordsEliminated;
-		boolean stemmingChanged = mStemming != null && mStemming != stemming;
+		boolean stopwordsChanged = mStopwordsEliminated != null && mStopwordsEliminated != config.useStopwordElimination();
+		boolean stemmingChanged = mStemming != null && mStemming != config.useStemming();
 		if(nullInstance || stopwordsChanged || stemmingChanged) {
-			mInstance = new InvertedListStorage(stopwordsEliminated, stemming);
+			mInstance = new InvertedListStorage(config);
 		}
 		return mInstance;
 	}

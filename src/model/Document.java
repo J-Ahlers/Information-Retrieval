@@ -3,6 +3,9 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import storage.StorageManager;
 import utils.Stemmer;
 import utils.StopWordEliminator;
@@ -131,5 +134,13 @@ public class Document {
 	
 	public int getType() {
 		return this.type;
+	}
+	
+	public static List<Integer> convert(List<Document> list) {
+		List<Integer> ids = new ArrayList<>();
+		for(Document doc : list)
+			ids.add(doc.getId());
+		
+		return ids;
 	}
 }

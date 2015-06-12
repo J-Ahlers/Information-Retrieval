@@ -24,8 +24,8 @@ public class LinearSearch extends SearchImpl {
 	 * returns the documents, that contain all the search terms
 	 */
 	@Override
-	public List<Document> getDocumentMatches(SearchConfiguration config, boolean eliminateStopwords, boolean useStemming) {
-		List<Document> docList = new ArrayList<>(StorageManager.load(eliminateStopwords, useStemming));
+	public List<Document> getDocumentMatches(SearchConfiguration config) {
+		List<Document> docList = new ArrayList<>(StorageManager.load(config.useStopwordElimination(), config.useStemming()));
 		List<Document> searchResult = new ArrayList<>();
 		
 		for(Document doc : docList) {

@@ -23,7 +23,7 @@ public interface Search {
 	public static final int TYPE_UNMODIFIED = 0;
 	public static final int TYPE_STOPWORDS_ELIMINATED = 1;
 	
-	public List<Document> getDocumentMatches(SearchConfiguration config, boolean eliminateStopwords, boolean useStemming);
+	public List<Document> getDocumentMatches(SearchConfiguration config);
 	
 	public PrecisionAndRecall getPrecisionAndRecall();
 	

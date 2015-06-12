@@ -101,7 +101,7 @@ public class SearchWindow extends JPanel {
 		
 		if (!searchTerms.isEmpty()) {
 			Search search = new SearchImpl(searchStrategyIndex);
-			result = search.getDocumentMatches(new SearchConfiguration(searchTerms), sWE, stemming);
+			result = search.getDocumentMatches(new SearchConfiguration(searchTerms, sWE, stemming));
 			PrecisionAndRecall pR;
 			if (precisionRecall)
 				pR = search.getPrecisionAndRecall();
