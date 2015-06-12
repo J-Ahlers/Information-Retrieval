@@ -41,6 +41,10 @@ public class SearchImpl implements Search {
 		}
 	}
 	
+	protected SearchImpl() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	@Override
 	public List<Document> getDocumentMatches(List<String> terms, boolean eliminateStopwords, boolean useStemming) {
 		if(eliminateStopwords) {
@@ -74,7 +78,6 @@ public class SearchImpl implements Search {
 	/**
 	 * returns the precision and recall for the specified result
 	 */
-	@Override
 	public PrecisionAndRecall getPrecisionAndRecall(List<String> terms, List<Document> result) {
 		return search.getPrecisionAndRecall(terms, result);
 	}

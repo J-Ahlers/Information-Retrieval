@@ -25,5 +25,7 @@ public interface Search {
 	
 	public List<Document> getDocumentMatches(List<String> terms, boolean eliminateStopwords, boolean useStemming);
 	
+	public PrecisionAndRecall getPrecisionAndRecall();
+	
 	public PrecisionAndRecall getPrecisionAndRecall(List<String> terms, List<Document> result);
 }

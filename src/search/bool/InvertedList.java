@@ -6,13 +6,13 @@ import java.util.List;
 
 import model.Document;
 import search.BooleanLogic;
-import search.Search;
+import search.SearchImpl;
 import storage.InvertedListStorage;
 import storage.StorageManager;
 import utils.PrecisionAndRecall;
 import utils.StopWordEliminator;
 
-public class InvertedList implements Search {
+public class InvertedList extends SearchImpl {
 	
 	@Override
 	public List<Document> getDocumentMatches(List<String> terms,

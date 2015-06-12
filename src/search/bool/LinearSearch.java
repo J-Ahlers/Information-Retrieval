@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Document;
-import search.Search;
+import search.SearchImpl;
 import storage.StorageManager;
 import utils.PrecisionAndRecall;
 import utils.StopWordEliminator;
@@ -17,8 +17,8 @@ import utils.StopWordEliminator;
  * 
  * @author Sophie Baschinski
  */
-public class LinearSearch implements Search {	
-	
+public class LinearSearch extends SearchImpl {
+
 	/**
 	 * returns the documents, that contain all the search terms
 	 */
