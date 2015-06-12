@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import model.Document;
+import search.SearchConfiguration;
 import search.bool.InvertedList;
 import storage.StorageManager;
 
@@ -13,7 +14,7 @@ public class PrecisionAndRecall {
 	private List<Document> searchResult;
 	private List<Document> trueResult;
 	
-	public PrecisionAndRecall(List<String> terms, List<Document> result) {
+	public PrecisionAndRecall(SearchConfiguration config, List<Document> result) {
 		this.searchResult = result;
 		
 		HashMap<String, List<Integer>> map = new HashMap<>();
@@ -36,7 +37,7 @@ public class PrecisionAndRecall {
 			
 			map.put(word, ids);
 		}
-		this.trueResult = InvertedList.getDocumentMatches(map, terms, false, false);
+		this.trueResult = InvertedList.getDocumentMatches(map, config, false, false);
 	}
 	
 	public double getPrecision() {

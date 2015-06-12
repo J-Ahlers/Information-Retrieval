@@ -81,7 +81,8 @@ public class Document {
 	}
 	
 	private String getFilename() {
-		return id+"#"+title.toLowerCase().replace(" ", "_");
+		String prefix = id < 10 ? "0" : "";
+		return prefix+id+"#"+title.toLowerCase().replace(" ", "_");
 	}
 	
 	/**

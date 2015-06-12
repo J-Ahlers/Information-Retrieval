@@ -23,9 +23,9 @@ public interface Search {
 	public static final int TYPE_UNMODIFIED = 0;
 	public static final int TYPE_STOPWORDS_ELIMINATED = 1;
 	
-	public List<Document> getDocumentMatches(List<String> terms, boolean eliminateStopwords, boolean useStemming);
+	public List<Document> getDocumentMatches(SearchConfiguration config, boolean eliminateStopwords, boolean useStemming);
 	
 	public PrecisionAndRecall getPrecisionAndRecall();
 	
-	public PrecisionAndRecall getPrecisionAndRecall(List<String> terms, List<Document> result);
+	public PrecisionAndRecall getPrecisionAndRecall(SearchConfiguration config, List<Document> result);
 }

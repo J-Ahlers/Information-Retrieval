@@ -6,9 +6,6 @@ import java.util.List;
 
 public class BooleanLogic {
 	
-	private static final int AND = 0;
-	private static final int OR = 1;
-	
 	
 	/**
 	 * The Integer Lists passed here must be sorted already!
@@ -16,15 +13,16 @@ public class BooleanLogic {
 	 * @param docIds
 	 * @return
 	 */
-	public static List<Integer> applyBooleanLogic(List<String> terms, List<List<Integer>> docIds) {
-		List<Integer> result = new ArrayList<>();
-		int type = terms.size() == 3 && terms.get(1).equals("or") ? OR : AND;
-		
+	public static List<Integer> applyBooleanLogic(SearchConfiguration config, List<List<Integer>> docIds) {
+		List<Integer> result = new ArrayList<>();		
 
 		Iterator<List<Integer>> i = docIds.iterator();
-		List<Integer> start = i.next();
-		while(i.hasNext()) {
-			result = combineResults(type, start, i.next());
+		if(!docIds.isEmpty()) {
+			List<Integer> start = i.next();
+			result = start;
+			while(i.hasNext()) {
+				result = combineResults(config.getType(), result, i.next());
+			}
 		}
 		
 		return result;
@@ -42,25 +40,29 @@ public class BooleanLogic {
 					i++;
 					j++;
 				}
-				else if(list1.get(i) < list1.get(j)) {
-					if(result.get(result.size()) < list1.get(i) && type == OR)
+				else if(list1.get(i) < list2.get(j)) {
+					if((result.isEmpty() || result.get(result.size()-1) < list1.get(i)) && type == SearchConfiguration.OR)
 						result.add(list1.get(i));
 					i++;
 						
 				}
-				else if(list2.get(j) < list1.get(i)) {
-					if(result.get(result.size()) < list2.get(j) && type == OR)
+				else {
+					if((result.isEmpty() || result.get(result.size()-1) < list2.get(j)) && type == SearchConfiguration.OR)
 						result.add(list2.get(j));
 					j++;
 						
 				}
 			}
-			else if(type == AND) {
+			else if(type == SearchConfiguration.AND) {
 				break;
 			}
 			else if(i < list1.size()) {
 				result.add(list1.get(i));
 				i++;
+			}
+			else if(j < list2.size()) {
+				result.add(list2.get(j));
+				j++;
 			}
 		}
 		return result;

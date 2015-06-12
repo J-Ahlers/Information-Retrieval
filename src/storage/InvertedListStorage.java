@@ -19,10 +19,13 @@ public class InvertedListStorage {
 		mStopwordsEliminated = stopwordsEliminated;
 		mStemming = stemming;
 		map = new HashMap<>();
-		List<Document> docs = StorageManager.load();
+		List<Document> docs = StorageManager.load(stopwordsEliminated, stemming);
 		for(Document doc : docs) {
 			String[] words = doc.getContent().split(" ");
 			for(String word : words) {
+				if(word.equals("") || word.equals(" "))
+					continue;
+				
 				List<Integer> docIds = map.get(word);
 				if(docIds != null && !docIds.contains(doc.getId())) {
 					docIds.add(doc.getId());
@@ -30,7 +33,8 @@ public class InvertedListStorage {
 					Collections.sort(docIds);
 				}
 				else {
-					docIds = new ArrayList<>(doc.getId());
+					docIds = new ArrayList<>();
+					docIds.add(doc.getId());
 					map.put(word, docIds);
 				}
 			}

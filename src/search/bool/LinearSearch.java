@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Document;
+import search.SearchConfiguration;
 import search.SearchImpl;
 import storage.StorageManager;
 import utils.PrecisionAndRecall;
@@ -23,12 +24,12 @@ public class LinearSearch extends SearchImpl {
 	 * returns the documents, that contain all the search terms
 	 */
 	@Override
-	public List<Document> getDocumentMatches(List<String> terms, boolean eliminateStopwords, boolean useStemming) {
+	public List<Document> getDocumentMatches(SearchConfiguration config, boolean eliminateStopwords, boolean useStemming) {
 		List<Document> docList = new ArrayList<>(StorageManager.load(eliminateStopwords, useStemming));
 		List<Document> searchResult = new ArrayList<>();
 		
 		for(Document doc : docList) {
-			if(containsTerm(doc, terms)) 
+			if(containsTerm(doc, config.getTerms())) 
 				searchResult.add(doc);
 		}
 		
@@ -62,7 +63,7 @@ public class LinearSearch extends SearchImpl {
 
 
 	@Override
-	public PrecisionAndRecall getPrecisionAndRecall(List<String> terms, List<Document> result) {
-		return new PrecisionAndRecall(terms, result);
+	public PrecisionAndRecall getPrecisionAndRecall(SearchConfiguration config, List<Document> result) {
+		return new PrecisionAndRecall(config, result);
 	}
 }

@@ -21,7 +21,7 @@ public class SearchImpl implements Search {
 
 	private Search search;
 	private List<Document> result;
-	private List<String> terms;
+	private SearchConfiguration config;
 	
 	/**
 	 * starts at the moment just the linear search
@@ -46,40 +46,40 @@ public class SearchImpl implements Search {
 	}
 	
 	@Override
-	public List<Document> getDocumentMatches(List<String> terms, boolean eliminateStopwords, boolean useStemming) {
+	public List<Document> getDocumentMatches(SearchConfiguration config, boolean eliminateStopwords, boolean useStemming) {
 		if(eliminateStopwords) {
 			List<String> tmpTerms = new ArrayList<>();
-			for(String term : terms) {
+			for(String term : config.getTerms()) {
 				if(StopWordEliminator.isStopword(term))
 					continue;
 				else
 					tmpTerms.add(term);
 			}
-			terms = tmpTerms;
+			config.setTerms(tmpTerms);
 		}
 		
-		if(terms.isEmpty() || terms.get(0).equals(""))
+		if(config.getTerms().isEmpty() || config.getTerms().get(0).equals(""))
 			return new ArrayList<Document>();
 		
 		if(useStemming) {
 			List<String> tmpTerms = new ArrayList<>();
 			Stemmer st = new Stemmer();
-			for(String term : terms) {
+			for(String term : config.getTerms()) {
 				tmpTerms.add(st.getStemmedContent(term));
 			}
-			terms = tmpTerms;
+			config.setTerms(tmpTerms);
 		}
 		
-		this.result = search.getDocumentMatches(terms, eliminateStopwords, useStemming);
-		this.terms = terms;
+		this.result = search.getDocumentMatches(config, eliminateStopwords, useStemming);
+		this.config = config;
 		return result;
 	}
 
 	/**
 	 * returns the precision and recall for the specified result
 	 */
-	public PrecisionAndRecall getPrecisionAndRecall(List<String> terms, List<Document> result) {
-		return search.getPrecisionAndRecall(terms, result);
+	public PrecisionAndRecall getPrecisionAndRecall(SearchConfiguration config, List<Document> result) {
+		return search.getPrecisionAndRecall(config, result);
 	}
 
 	/**
@@ -87,6 +87,6 @@ public class SearchImpl implements Search {
 	 * @return
 	 */
 	public PrecisionAndRecall getPrecisionAndRecall() {
-		return search.getPrecisionAndRecall(terms, result);
+		return search.getPrecisionAndRecall(config, result);
 	}
 }

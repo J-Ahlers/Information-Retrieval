@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 
 import model.Document;
 import search.Search;
+import search.SearchConfiguration;
 import search.SearchImpl;
 import utils.PrecisionAndRecall;
 
@@ -100,7 +101,7 @@ public class SearchWindow extends JPanel {
 		
 		if (!searchTerms.isEmpty()) {
 			Search search = new SearchImpl(searchStrategyIndex);
-			result = search.getDocumentMatches(searchTerms, sWE, stemming);
+			result = search.getDocumentMatches(new SearchConfiguration(searchTerms), sWE, stemming);
 			PrecisionAndRecall pR;
 			if (precisionRecall)
 				pR = search.getPrecisionAndRecall();
