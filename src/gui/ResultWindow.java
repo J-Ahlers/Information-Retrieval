@@ -14,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import utils.PrecisionAndRecall;
 import model.Document;
 
 /**
@@ -35,7 +36,7 @@ public class ResultWindow extends JPanel {
 	/**
 	 * gets a frame and shows the result window
 	 */
-	public ResultWindow(ManagerFrame frame, List<Document> result) {
+	public ResultWindow(ManagerFrame frame, List<Document> result, PrecisionAndRecall pr) {
 		this.frame = frame;
 		frame.setTitle("Result Window");
 		this.setLayout(new BorderLayout());
