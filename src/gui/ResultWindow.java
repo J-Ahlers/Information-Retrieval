@@ -30,7 +30,7 @@ public class ResultWindow extends JPanel {
 
 	@SuppressWarnings("unused")
 	private ManagerFrame frame;
-	private JButton bConfirm = new JButton();
+	private JButton bBack = new JButton();
 	
 	private AlResultWindow alResultWindow = new AlResultWindow();
 	
@@ -52,15 +52,15 @@ public class ResultWindow extends JPanel {
 			panelNorth.add(label);
 		}
 		
-		bConfirm.setPreferredSize(new Dimension(150, 40));
-		bConfirm.setText("Result");
+		bBack.setPreferredSize(new Dimension(150, 40));
+		bBack.setText("Back");
 
 		this.add(panelNorth, BorderLayout.PAGE_START);
 		this.add(panelCenter, BorderLayout.CENTER);
 		this.add(panelSouth, BorderLayout.PAGE_END);
 
 		
-		panelSouth.add(bConfirm);
+		panelSouth.add(bBack);
 		
 		JPanel jplPanel = new JPanel();
 		jplPanel.setLayout(new BoxLayout(jplPanel, BoxLayout.Y_AXIS));
@@ -72,14 +72,14 @@ public class ResultWindow extends JPanel {
 		
 		panelCenter.add(jplPanel);
 		
-		bConfirm.addActionListener(alResultWindow);
+		bBack.addActionListener(alResultWindow);
 	}
 	
 	/**
 	 * under construction!
 	 */
-	private void confirm() {
-		//!TODO do sth
+	private void back() {
+		frame.showSearchWindow();
 	}
 	
 	/**
@@ -89,8 +89,8 @@ public class ResultWindow extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent event) {
 			Object source = event.getSource();
-			if (source.equals(bConfirm))
-				confirm();
+			if (source.equals(bBack))
+				back();
 		}
 	}
 }
