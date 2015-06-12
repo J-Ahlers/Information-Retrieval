@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -42,15 +43,23 @@ public class ResultWindow extends JPanel {
 		this.setLayout(new BorderLayout());
 
 		JPanel panelNorth = new JPanel();
+		JPanel panelCenter = new JPanel();
 		JPanel panelSouth = new JPanel();
+		JLabel label = new JLabel();
+		
+		if (pr != null) {
+			label.setText("Precision: " + pr.getPrecision() + ", Recall: " + pr.getRecall());
+			panelNorth.add(label);
+		}
 		
 		bConfirm.setPreferredSize(new Dimension(150, 40));
 		bConfirm.setText("Result");
 
 		this.add(panelNorth, BorderLayout.PAGE_START);
-		//this.add(panelCenter, BorderLayout.CENTER);
+		this.add(panelCenter, BorderLayout.CENTER);
 		this.add(panelSouth, BorderLayout.PAGE_END);
 
+		
 		panelSouth.add(bConfirm);
 		
 		JPanel jplPanel = new JPanel();
@@ -61,7 +70,7 @@ public class ResultWindow extends JPanel {
 			jplPanel.add(tfSearchWord);
 		}
 		
-		panelNorth.add(jplPanel);
+		panelCenter.add(jplPanel);
 		
 		bConfirm.addActionListener(alResultWindow);
 	}
