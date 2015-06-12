@@ -28,7 +28,6 @@ import model.Document;
 public class ResultWindow extends JPanel {
 	private static final long serialVersionUID = 13;
 
-	@SuppressWarnings("unused")
 	private ManagerFrame frame;
 	private JButton bBack = new JButton();
 	

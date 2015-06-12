@@ -19,8 +19,9 @@ public class PrecisionAndRecall {
 		
 		HashMap<String, List<Integer>> map = new HashMap<>();
 		
-		String theTruth = StorageManager.readFile("/res/ground_truth.txt");
+		String theTruth = StorageManager.readFile("res/ground_truth.txt");
 		theTruth = theTruth.replaceAll(" ,", ",");
+		theTruth = theTruth.replaceAll(",  ", ", ");
 		
 		String[] parts = theTruth.split("\r\n");
 		for(String line : parts) {

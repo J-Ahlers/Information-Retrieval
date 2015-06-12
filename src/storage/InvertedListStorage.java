@@ -32,7 +32,7 @@ public class InvertedListStorage {
 					map.put(word, docIds);
 					Collections.sort(docIds);
 				}
-				else {
+				else if (docIds == null) {
 					docIds = new ArrayList<>();
 					docIds.add(doc.getId());
 					map.put(word, docIds);
