@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Document;
+import search.BooleanLogic;
 import search.SearchConfiguration;
 import search.SearchImpl;
 import storage.StorageManager;
@@ -26,39 +27,35 @@ public class LinearSearch extends SearchImpl {
 	@Override
 	public List<Document> getDocumentMatches(SearchConfiguration config) {
 		List<Document> docList = new ArrayList<>(StorageManager.load(config.useStopwordElimination(), config.useStemming()));
-		List<Document> searchResult = new ArrayList<>();
+		List<List<Integer>> searchResult = new ArrayList<>();
 		
-		for(Document doc : docList) {
-			if(containsTerm(doc, config.getTerms())) 
-				searchResult.add(doc);
+		List<String> terms = config.getTerms();
+		for(String term : terms) {
+			List<Integer> docIDs = new ArrayList<>();
+			for(Document doc : docList) {
+				if(containsTerm(doc, term))
+					docIDs.add(doc.getId());
+			}
+			searchResult.add(docIDs);
 		}
 		
-		return searchResult;
+		List<Integer> docIds = BooleanLogic.applyBooleanLogic(config, searchResult);		
+		return StorageManager.load(docIds, config.useStopwordElimination(), config.useStemming());
 	}
 
 	
 	/**
 	 * returns true if all search terms are in the docs content or title
 	 */
-	private boolean containsTerm(Document doc, List<String> terms) {
-		boolean result = true;
-		for(String term : terms) {
-			// if one search term is a stopword, ignore it
-			boolean stopword = StopWordEliminator.isStopword(term);
-			if( stopword && ( doc.getType() == Document.TYPE_STOPWORDS_ELIMINATED || doc.getType() == Document.TYPE_BOTH )) {
-				result = false;
-				continue;
-			}
-			
-			boolean inTitle = doc.getTitle().contains(" "+term.toLowerCase()+" ");
-			boolean inContent = doc.getContent().contains(" "+term.toLowerCase()+" ");
-			result = result && ( inTitle || inContent );
-			
-			if(!result)
-				break;
-			
+	private boolean containsTerm(Document doc, String term) {
+		boolean stopword = StopWordEliminator.isStopword(term);
+		if( term.equals("") || (stopword && ( doc.getType() == Document.TYPE_STOPWORDS_ELIMINATED || doc.getType() == Document.TYPE_BOTH ))) {
+			return false;
 		}
-		return result && !terms.isEmpty();
+		
+		boolean inTitle = doc.getTitle().contains(" "+term.toLowerCase()+" ");
+		boolean inContent = doc.getContent().contains(" "+term.toLowerCase()+" ");
+		return inTitle || inContent;
 	}
 
 

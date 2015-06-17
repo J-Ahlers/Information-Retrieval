@@ -71,7 +71,7 @@ public class SearchImpl implements Search {
 		}
 		
 		this.result = search.getDocumentMatches(config);
-		this.config = config;
+		this.config = config;		
 		return result;
 	}
 
