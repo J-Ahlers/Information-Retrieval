@@ -43,7 +43,7 @@ public class ResultWindow extends JPanel {
 	 */
 	public ResultWindow(ManagerFrame frame, List<Document> result, PrecisionAndRecall pr, SearchConfiguration config) {
 		this.frame = frame;
-		frame.setTitle("Result Window");
+		this.frame.setTitle("Result Window");
 		this.setLayout(new BorderLayout());
 		this.config = config;
 
@@ -70,10 +70,10 @@ public class ResultWindow extends JPanel {
 		JPanel jplPanel = new JPanel();
 		jplPanel.setLayout(new BoxLayout(jplPanel, BoxLayout.Y_AXIS));
 		
-		// fixed size, because I don't know how to make it flexible xD
-		JTextArea textArea = new JTextArea(29, 60);
+		JTextArea textArea = new JTextArea();
 		JScrollPane scrollPane = new JScrollPane(textArea); 
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane.setPreferredSize(new Dimension((int)(this.frame.getWidth()*0.9),(int)(this.frame.getHeight()*0.8)));
 		textArea.setEditable(false);
 		
 		for(Document res : result) {
