@@ -20,11 +20,11 @@ public class SearchConfiguration {
 		for(int i = 0; i < terms.size(); i++) {
 			if(terms.size() == 3 && i == 1) {
 				String term1 = terms.get(1);
-				if(term1.equals("or")) {
+				if(term1.equals("or") || term1.equals("OR")) {
 					this.config = OR;
 					continue;
 				}
-				else if(term1.equals("and")) {
+				else if(term1.equals("and") || term1.equals("AND")) {
 					continue;
 				}
 			}
