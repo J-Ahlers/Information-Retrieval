@@ -40,10 +40,10 @@ public class FileSplitter {
 	}
 	
 	private String getContent(String[] fableparts) {
-		return fableparts[1];
+		return fableparts[1].replace("'", "");
 	}
 	
 	private String getTitle(String[] fableparts) {
-		return fableparts[0];
+		return fableparts[0].replace("'", "");
 	}
 }

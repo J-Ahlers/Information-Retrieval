@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import search.SearchConfiguration;
 import utils.PrecisionAndRecall;
 import model.Document;
 
@@ -31,15 +32,18 @@ public class ResultWindow extends JPanel {
 	private ManagerFrame frame;
 	private JButton bBack = new JButton();
 	
+	private SearchConfiguration config;
+	
 	private AlResultWindow alResultWindow = new AlResultWindow();
 	
 	/**
 	 * gets a frame and shows the result window
 	 */
-	public ResultWindow(ManagerFrame frame, List<Document> result, PrecisionAndRecall pr) {
+	public ResultWindow(ManagerFrame frame, List<Document> result, PrecisionAndRecall pr, SearchConfiguration config) {
 		this.frame = frame;
 		frame.setTitle("Result Window");
 		this.setLayout(new BorderLayout());
+		this.config = config;
 
 		JPanel panelNorth = new JPanel();
 		JPanel panelCenter = new JPanel();
@@ -78,7 +82,11 @@ public class ResultWindow extends JPanel {
 	 * under construction!
 	 */
 	private void back() {
-		frame.showSearchWindow();
+		frame.getContentPane().removeAll();		
+		SearchWindow searchWindow = new SearchWindow(frame, config);
+		frame.add(searchWindow, BorderLayout.CENTER);
+		frame.validate();
+		frame.repaint();
 	}
 	
 	/**

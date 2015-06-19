@@ -3,10 +3,13 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
+import search.SearchConfiguration;
 import storage.FileSplitter;
 import storage.WorkingDirectory;
 import core.RetrievalSystem;
@@ -58,8 +61,10 @@ public class ManagerFrame extends JFrame {
 	 * empties the screen and shows the searching window
 	 */
 	public void showSearchWindow() {
-	    this.getContentPane().removeAll();		
-		SearchWindow searchWindow = new SearchWindow(this);
+	    this.getContentPane().removeAll();
+	    List<String> empty = new ArrayList<>();
+	    SearchConfiguration config = new SearchConfiguration(empty, 0, false, false, false);
+		SearchWindow searchWindow = new SearchWindow(this, config);
 		this.add(searchWindow, BorderLayout.CENTER);
 		this.validate();
 		this.repaint();

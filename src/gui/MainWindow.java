@@ -78,6 +78,7 @@ public class MainWindow extends JPanel {
 	private void chooseDirectory() {
 		bContinue.setEnabled(true);
 		frame.directoryChooser();
+		bContinue.setEnabled(false);
 	}
 
 	/**
@@ -85,11 +86,6 @@ public class MainWindow extends JPanel {
 	 */
 	private void continueToSearch() {
 		frame.showSearchWindow();
-		//frame.getContentPane().removeAll();		
-		//SearchWindow searchWindow = new SearchWindow(frame);
-		//frame.add(searchWindow, BorderLayout.CENTER);
-		//frame.validate();
-		//frame.repaint();
 	}
 	
 	/**

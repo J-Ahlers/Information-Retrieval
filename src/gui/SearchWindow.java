@@ -47,22 +47,27 @@ public class SearchWindow extends JPanel {
 	private JCheckBox cbSWE = new JCheckBox("Use StopWord Eliminator");
 	private JCheckBox cbStemming = new JCheckBox("Use Stemming");
 	private JCheckBox cbPrecisionRecall = new JCheckBox("Show Precision and Recall");
-	private JComboBox searchStrategy;
-    String[] searchString = { "Lineare Suche", "Invertierte Liste", "Signaturen", "Vektormodell"};
+	private JComboBox<?> searchStrategy;
+    String[] searchMethods = { "Lineare Suche", "Invertierte Liste", "Signaturen", "Vektormodell"};
 
 	private JPanel panelNorth = new JPanel();
 	private JPanel panelCenter = new JPanel();
 	private JPanel panelSouth = new JPanel();
 
 	private AlSearchWindow alSearchWindow = new AlSearchWindow();
-	
+
 	/**
 	 * gets a frame and shows search window
 	 */
-	public SearchWindow(ManagerFrame frame) {
+	public SearchWindow(ManagerFrame frame, SearchConfiguration config) {
 		this.frame = frame;
 		frame.setTitle("Search Window");
 		this.setLayout(new BorderLayout());
+		this.searchTerms = config.getTerms();
+		this.sWE = config.useStopwordElimination();
+		this.stemming = config.useStemming();
+		this.precisionRecall = config.isShowPrecisionRecall(); 
+		this.searchStrategyIndex = config.getStrategy();
 
 		bConfirm.setPreferredSize(new Dimension(150, 40));
 
@@ -73,8 +78,21 @@ public class SearchWindow extends JPanel {
 		this.add(panelCenter, BorderLayout.CENTER);
 		this.add(panelSouth, BorderLayout.PAGE_END);
 
-		searchStrategy = new JComboBox(searchString);
-		searchStrategy.setSelectedIndex(0);
+		searchStrategy = new JComboBox<>(this.searchMethods);
+		searchStrategy.setSelectedIndex(this.searchStrategyIndex);
+		if (this.searchTerms.isEmpty()) {
+			tfSearchWord.setText("");
+		}
+		else {
+			String temp = "";
+			for (String searchTerm : searchTerms) {
+				temp = temp + searchTerm + " ";
+			}
+			tfSearchWord.setText(temp);
+		}
+		cbSWE.setSelected(this.sWE);
+		cbStemming.setSelected(this.stemming);
+		cbPrecisionRecall.setSelected(this.precisionRecall);
 		
 		panelNorth.add(label);
 		panelNorth.add(tfSearchWord);
@@ -101,14 +119,15 @@ public class SearchWindow extends JPanel {
 		
 		if (!searchTerms.isEmpty()) {
 			Search search = new SearchImpl(searchStrategyIndex);
-			result = search.getDocumentMatches(new SearchConfiguration(searchTerms, sWE, stemming));
+			SearchConfiguration config = new SearchConfiguration(searchTerms, searchStrategyIndex, sWE, stemming, precisionRecall);
+			result = search.getDocumentMatches(config);
 			PrecisionAndRecall pR;
 			if (precisionRecall)
 				pR = search.getPrecisionAndRecall();
 			else
 				pR = null;
 			frame.getContentPane().removeAll();
-			ResultWindow resultWindow = new ResultWindow(frame, result, pR);
+			ResultWindow resultWindow = new ResultWindow(frame, result, pR, config);
 			frame.add(resultWindow, BorderLayout.CENTER);
 			frame.validate();
 			frame.repaint();

@@ -54,8 +54,7 @@ public class StopWordEliminator {
 	 */
 	private String removePunctuation(String content) {
 		String temp = content.replaceAll("[,.;!?:\"\\[\\](){}><]", " ");
-		// replace apostrophe only if a whitespace character follows afterwards 
-		temp = temp.replaceAll("' ", " ");
+		// Apostroph already replaced (in FileSplitter)
 		return temp;
 	}
 	
@@ -97,7 +96,7 @@ public class StopWordEliminator {
 		 * creates a list with stopwords from a file
 		 */
 		private StopwordList() {
-			String string = StorageManager.readFile("res/englishST.txt");
+			String string = StorageManager.readFile("res/englishST.txt").replace("'", "");
 			stopWords =	Arrays.asList(string.split("\r\n"));
 		}
 		

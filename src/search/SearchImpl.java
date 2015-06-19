@@ -53,7 +53,7 @@ public class SearchImpl implements Search {
 				if(StopWordEliminator.isStopword(term))
 					continue;
 				else
-					tmpTerms.add(term);
+					tmpTerms.add(term.replace("'", ""));
 			}
 			config.setTerms(tmpTerms);
 		}
