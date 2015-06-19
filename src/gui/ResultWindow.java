@@ -13,6 +13,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import search.SearchConfiguration;
@@ -67,11 +69,18 @@ public class ResultWindow extends JPanel {
 		
 		JPanel jplPanel = new JPanel();
 		jplPanel.setLayout(new BoxLayout(jplPanel, BoxLayout.Y_AXIS));
+		
+		// fixed size, because I don't know how to make it flexible xD
+		JTextArea textArea = new JTextArea(29, 60);
+		JScrollPane scrollPane = new JScrollPane(textArea); 
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		textArea.setEditable(false);
+		
 		for(Document res : result) {
-			JTextField tfSearchWord = new JTextField(60);
-			tfSearchWord.setText(res.getId()+" | "+res.getTitle());
-			jplPanel.add(tfSearchWord);
+			textArea.setText(textArea.getText() + res.getId()+" | "+res.getTitle() + "\n");
 		}
+		
+		jplPanel.add(scrollPane);
 		
 		panelCenter.add(jplPanel);
 		
