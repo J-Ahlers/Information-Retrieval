@@ -12,8 +12,10 @@ public class SearchConfiguration {
 	private List<String> terms;
 	private boolean useStopwordElimination;
 	private boolean useStemming;
+	private boolean showPrecisionRecall;
+	private int strategy;
 	
-	public SearchConfiguration(List<String> terms, boolean useStopwordElimination, boolean useStemming) {
+	public SearchConfiguration(List<String> terms, int strategy, boolean useStopwordElimination, boolean useStemming, boolean showPrecisionRecall) {
 		List<String> tmp = new ArrayList<String>();
 		for(int i = 0; i < terms.size(); i++) {
 			if(terms.size() == 3 && i == 1) {
@@ -31,6 +33,8 @@ public class SearchConfiguration {
 		this.terms = tmp;
 		this.useStemming = useStemming;
 		this.useStopwordElimination = useStopwordElimination;
+		this.strategy = strategy;
+		this.showPrecisionRecall = showPrecisionRecall;
 	}
 	
 	public List<String> getTerms() {
@@ -51,6 +55,22 @@ public class SearchConfiguration {
 	
 	public boolean useStopwordElimination() {
 		return useStopwordElimination;
+	}
+
+	public boolean isShowPrecisionRecall() {
+		return showPrecisionRecall;
+	}
+
+	public void setShowPrecisionRecall(boolean showPrecisionRecall) {
+		this.showPrecisionRecall = showPrecisionRecall;
+	}
+
+	public int getStrategy() {
+		return strategy;
+	}
+
+	public void setStrategy(int strategy) {
+		this.strategy = strategy;
 	}
 	
 }
