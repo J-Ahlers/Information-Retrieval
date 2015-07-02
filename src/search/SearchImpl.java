@@ -36,6 +36,9 @@ public class SearchImpl implements Search {
 		case STRATEGY_INVERTED_LIST:
 			this.search = new InvertedList();
 			break;
+		case STRATEGY_SIGNATURE:
+			this.search = new Signature();
+			break;
 		default:
 			this.search = new LinearSearch();		
 		}

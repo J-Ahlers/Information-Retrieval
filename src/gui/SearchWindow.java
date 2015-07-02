@@ -48,7 +48,7 @@ public class SearchWindow extends JPanel {
 	private JCheckBox cbStemming = new JCheckBox("Use Stemming");
 	private JCheckBox cbPrecisionRecall = new JCheckBox("Show Precision and Recall");
 	private JComboBox<?> searchStrategy;
-    String[] searchMethods = { "Lineare Suche", "Invertierte Liste", "Signaturen", "Vektormodell"};
+    String[] searchMethods = { "Lineare Suche", "Invertierte Liste", "Signaturen"};
 
 	private JPanel panelNorth = new JPanel();
 	private JPanel panelCenter = new JPanel();
@@ -102,7 +102,6 @@ public class SearchWindow extends JPanel {
 		panelCenter.add(searchStrategy);
 		panelSouth.add(bConfirm);
 		
-        //searchStrategy.addActionListener(alSearchWindow);
 		bConfirm.addActionListener(alSearchWindow);
 	}
 	
