@@ -24,10 +24,13 @@ public class InvertedSignatureListStorage {
 		map = new HashMap<>();
 		List<Document> docs = StorageManager.load(config.useStopwordElimination(), config.useStemming());
 		SignatureGenerator sg = new SignatureGenerator();
+		
+		List<BitSet> voidSignatures = sg.getSignatures(new String[] {"", " "});
+		
 		for(Document doc : docs) {
 			List<BitSet> signatures = sg.getSignatures(doc.getContent().split(" "));
 			for(BitSet signature : signatures) {
-				if(signature.equals("") || signature.equals(" "))
+				if(voidSignatures.contains(signature))
 					continue;
 				
 				List<Integer> docIds = map.get(signature);

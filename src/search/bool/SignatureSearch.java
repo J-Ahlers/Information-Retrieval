@@ -1,55 +1,45 @@
 package search.bool;
 
 import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.HashMap;
 import java.util.List;
 
 import model.Document;
 import search.BooleanLogic;
 import search.SearchConfiguration;
 import search.SearchImpl;
+import storage.InvertedSignatureListStorage;
 import storage.StorageManager;
 import utils.PrecisionAndRecall;
-import utils.StopWordEliminator;
 
 public class SignatureSearch extends SearchImpl {
 
-	/**
-	 * returns the documents, that contain all the search terms
-	 */
 	@Override
 	public List<Document> getDocumentMatches(SearchConfiguration config) {
-		List<Document> docList = new ArrayList<>(StorageManager.load(config.useStopwordElimination(), config.useStemming()));
-		List<List<Integer>> searchResult = new ArrayList<>();
-		
-		List<String> terms = config.getTerms();
-		for(String term : terms) {
-			List<Integer> docIDs = new ArrayList<>();
-			for(Document doc : docList) {
-				if(containsTerm(doc, term))
-					docIDs.add(doc.getId());
-			}
-			searchResult.add(docIDs);
-		}
-		
-		List<Integer> docIds = BooleanLogic.applyBooleanLogic(config, searchResult);		
-		return StorageManager.load(docIds, config.useStopwordElimination(), config.useStemming());
+		HashMap<BitSet, List<Integer>> hm = InvertedSignatureListStorage.getInstance(config).getHashMap();
+		return getDocumentMatches(hm, config);
 	}
-
 	
-	/**
-	 * returns true if all search terms are in the docs content or title
-	 */
-	private boolean containsTerm(Document doc, String term) {
-		boolean stopword = StopWordEliminator.isStopword(term);
-		if( term.equals("") || (stopword && ( doc.getType() == Document.TYPE_STOPWORDS_ELIMINATED || doc.getType() == Document.TYPE_BOTH ))) {
-			return false;
+	public static List<Document> getDocumentMatches(HashMap<BitSet, List<Integer>> hm, SearchConfiguration config) {
+		List<List<Integer>> resultIds = new ArrayList<>();
+		
+		for(String term : config.getTerms()) {			
+			List<Integer> findings = hm.get(term);
+			//StorageManager.saveDocument("hashmap", hm.toString(), 0);
+			if(findings != null) {
+				resultIds.add(findings);
+			}
 		}
 		
-		boolean inTitle = doc.getTitle().contains(" "+term.toLowerCase()+" ");
-		boolean inContent = doc.getContent().contains(" "+term.toLowerCase()+" ");
-		return inTitle || inContent;
+		List<Integer> docIds = BooleanLogic.applyBooleanLogic(config, resultIds);
+		List<Document> result = StorageManager.load(docIds, config.useStopwordElimination(), config.useStemming());
+		
+		LinearSearch ls = new LinearSearch();
+		ls.getDocumentMatches(result, config);
+		
+		return result;
 	}
-
 
 	@Override
 	public PrecisionAndRecall getPrecisionAndRecall(SearchConfiguration config, List<Document> result) {
