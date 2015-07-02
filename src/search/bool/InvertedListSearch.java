@@ -12,7 +12,7 @@ import storage.InvertedListStorage;
 import storage.StorageManager;
 import utils.PrecisionAndRecall;
 
-public class InvertedList extends SearchImpl {
+public class InvertedListSearch extends SearchImpl {
 	
 	@Override
 	public List<Document> getDocumentMatches(SearchConfiguration config) {

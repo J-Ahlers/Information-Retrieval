@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.Document;
-import search.bool.InvertedList;
+import search.bool.InvertedListSearch;
 import search.bool.LinearSearch;
+import search.bool.SignatureSearch;
 import utils.PrecisionAndRecall;
 import utils.Stemmer;
 import utils.StopWordEliminator;
@@ -34,10 +35,10 @@ public class SearchImpl implements Search {
 			this.search = new LinearSearch();
 			break;
 		case STRATEGY_INVERTED_LIST:
-			this.search = new InvertedList();
+			this.search = new InvertedListSearch();
 			break;
 		case STRATEGY_SIGNATURE:
-			this.search = new Signature();
+			this.search = new SignatureSearch();
 			break;
 		default:
 			this.search = new LinearSearch();		

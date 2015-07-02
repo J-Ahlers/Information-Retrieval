@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import model.Document;
 import search.SearchConfiguration;
-import search.bool.InvertedList;
+import search.bool.InvertedListSearch;
 import storage.StorageManager;
 
 public class PrecisionAndRecall {
@@ -58,7 +58,7 @@ public class PrecisionAndRecall {
 		}
 		
 		if(validQuery)
-			this.trueResult = Document.convert(InvertedList.getDocumentMatches(truthMap, config));
+			this.trueResult = Document.convert(InvertedListSearch.getDocumentMatches(truthMap, config));
 	}
 	
 	public double getPrecision() {
