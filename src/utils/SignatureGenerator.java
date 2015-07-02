@@ -5,7 +5,13 @@ import java.util.List;
 
 public class SignatureGenerator {
 	
+	public static final int m = 12;
+	
 	public List<BitSet> getSignatures(String[] words) {
+		int hash = 0;
+		while (hash < m) {
+			
+		}
 		
 		return null;
 	}
@@ -19,27 +25,22 @@ public class SignatureGenerator {
 	}
 	
 	private int primFinder(int maxPrim) {
-		
 		int primCount = 0;
 		int prim = 2;
-		int n;
+		int n = 2;
 		int i = 2;
 		while(primCount < maxPrim) {
-			n = 2;
-
-			// Schleife ueber alle moeglichen Teiler n des Primzahlkandidaten i:
 			while (i % n != 0 && n <= i / 2) {
-				// Erhoehe n solange, wie i nicht nurch n teilbar ist und die
-				// Obergrenze noch nicht erreicht ist
 				n = n + 1;
 			}
 
-			// Falls die Schleife bis zur Obergrenze i/2 durchlaufen wurde:
 			if (n >= i / 2 + 1 && i != 1) {
-				System.out.println(i + " ist eine Primzahl.");
+				primCount++;
+				prim = i;
 			}
-			// andernfalls wurde die Schleife vorher abgebrochen, weil i durch n
-			// teilbar war -> keine Primzahl
+			
+			i++;
 		}
+		return prim;
 	}
 }
