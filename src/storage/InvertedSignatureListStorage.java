@@ -5,6 +5,7 @@ import java.util.BitSet;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import search.SearchConfiguration;
 import utils.SignatureGenerator;
@@ -13,7 +14,7 @@ import model.Document;
 public class InvertedSignatureListStorage {
 
 	private static InvertedSignatureListStorage mInstance;
-	private HashMap<BitSet, List<Integer>> map;
+	private Map<BitSet, List<Integer>> map;
 	
 	private static Boolean mStopwordsEliminated;
 	private static Boolean mStemming;
@@ -25,14 +26,9 @@ public class InvertedSignatureListStorage {
 		List<Document> docs = StorageManager.load(config.useStopwordElimination(), config.useStemming());
 		SignatureGenerator sg = new SignatureGenerator();
 		
-		List<BitSet> voidSignatures = sg.getSignatures(new String[] {"", " "});
-		
 		for(Document doc : docs) {
 			List<BitSet> signatures = sg.getSignatures(doc.getContent().split(" "));
-			for(BitSet signature : signatures) {
-				if(voidSignatures.contains(signature))
-					continue;
-				
+			for(BitSet signature : signatures) {				
 				List<Integer> docIds = map.get(signature);
 				if(docIds != null && !docIds.contains(doc.getId())) {
 					docIds.add(doc.getId());
@@ -58,7 +54,7 @@ public class InvertedSignatureListStorage {
 		return mInstance;
 	}
 	
-	public HashMap<BitSet, List<Integer>> getHashMap() {
+	public Map<BitSet, List<Integer>> getHashMap() {
 		return map;
 	}
 }
