@@ -27,6 +27,10 @@ public class LinearSearch extends SearchImpl {
 	@Override
 	public List<Document> getDocumentMatches(SearchConfiguration config) {
 		List<Document> docList = new ArrayList<>(StorageManager.load(config.useStopwordElimination(), config.useStemming()));
+		return getDocumentMatches(docList, config);
+	}
+
+	protected List<Document> getDocumentMatches(List<Document> docList, SearchConfiguration config) {
 		List<List<Integer>> searchResult = new ArrayList<>();
 		
 		List<String> terms = config.getTerms();
@@ -42,7 +46,6 @@ public class LinearSearch extends SearchImpl {
 		List<Integer> docIds = BooleanLogic.applyBooleanLogic(config, searchResult);		
 		return StorageManager.load(docIds, config.useStopwordElimination(), config.useStemming());
 	}
-
 	
 	/**
 	 * returns true if all search terms are in the docs content or title
