@@ -1,5 +1,6 @@
 package utils;
 
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.List;
 
@@ -9,12 +10,22 @@ public class SignatureGenerator {
 	public static final int F = 64;
 	
 	public List<BitSet> getSignatures(String[] words) {
-		int hash = 0;
-		while (hash < m) {
-			
+		List<BitSet> bitSetList = new ArrayList<BitSet>();
+		for (String word : words) {
+			int hash = 1;
+			int pi;
+			int position;
+			BitSet bitSet = new BitSet(F);
+			while (hash <= m) {
+				pi = primFinder(hash);
+				position = hashFunction(word, pi);
+				if (!bitSet.get(position)) {
+					bitSet.set(position);
+					hash++;
+				}
+			}
 		}
-		
-		return null;
+		return bitSetList;
 	}
 	
 	private int hashFunction(String word, int pi) {
