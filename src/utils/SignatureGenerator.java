@@ -6,6 +6,7 @@ import java.util.List;
 public class SignatureGenerator {
 	
 	public static final int m = 12;
+	public static final int F = 64;
 	
 	public List<BitSet> getSignatures(String[] words) {
 		int hash = 0;
@@ -15,13 +16,17 @@ public class SignatureGenerator {
 		
 		return null;
 	}
-
 	
-	private int hashFunction(int i) {
+	private int hashFunction(String word, int pi) {
+		char[] l = word.toCharArray();
+		int hash_i = 0;
 		
+		for(char wk : l)
+			hash_i = (hash_i + wk) * pi;
 		
+		hash_i = hash_i % F;
 		
-		return 0;
+		return hash_i;
 	}
 	
 	private int primFinder(int maxPrim) {
